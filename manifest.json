@@ -4,8 +4,8 @@
   "theme_color": "#646464",
   "background_color": "#2196f3",
   "display": "standalone",
-  "Scope": "/vadapp",
-  "start_url": "/vadapp",
+  "Scope": "/vadapp/index.html",
+  "start_url": "/index.html",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
