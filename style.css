@@ -35,6 +35,8 @@ nav > ul > li > img, nav > ul > li > a > img{
   max-height: 1em;
 }
 nav > ul > li > *, nav > ul > li > a > *{
+  min-height: 24px;
+  min-width: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
