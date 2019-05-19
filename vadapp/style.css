@@ -1,0 +1,13 @@
+:root{
+  --main-bg-color: DimGray;
+  --main-text-color: whitesmoke;
+}
+body{
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
