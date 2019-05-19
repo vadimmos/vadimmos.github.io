@@ -1,5 +1,5 @@
 :root{
-  --main-bg-color: DimGray;
+  --main-bg-color: rgb(158, 158, 158);
   --main-text-color: whitesmoke;
 }
 body{
@@ -10,4 +10,127 @@ body{
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+header{
+  margin-bottom: 16px;
+}
+main{
+  padding: 4px 8px;
+}
+nav > ul{
+  display: flex;
+  flex-direction: column;
+}
+nav > ul > li{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+nav > ul > li > img, nav > ul > li > a > img{
+  max-width: 1em;
+  max-height: 1em;
+}
+nav > ul > li > *, nav > ul > li > a > *{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: row;
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 1;
+  align-items: center;
+  text-align: center;
+  margin-right: 4px;
+}
+
+#logo{
+  display: flex;
+  flex-direction: row;
+}
+#logo::after{
+  content: 'vadimmos';
+  display: inline-flex;
+}
+#logo::before{
+  content: '';
+  display: inline-flex;
+  background-image: url(images/icons/icon-72x72.png);
+  width: 43px;
+  height: 43px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.flex{
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+.no-flex{
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+.horizontal{
+  display: flex;
+  flex-direction: row;
+}
+.horizontal-rev{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.vertical{
+  display: flex;
+  flex-direction: column;
+}
+.vertical-rev{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.center{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.raised{
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+button{
+  background-color: rgb(255, 255, 255);
+  margin: 4px 8px;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.8;
+  cursor: pointer;
+  min-width: 24px;
+  min-height: 24px;
+  align-items: center;
+  justify-content: center;
+  outline-offset: -1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: none;
+  font-size: 110%;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+  user-select: none;
+}
+button:hover{
+  opacity: 1;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+}
+button:hover{
+  transition: all 0.1s;
+}
+button:active{
+  background-color: rgb(210, 210, 210);
+  opacity: 1;
+  box-shadow: none;
 }
