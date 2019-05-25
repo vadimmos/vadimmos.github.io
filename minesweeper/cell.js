@@ -36,14 +36,14 @@ export default class Cell {
     return this._neighbor;
   }
   open() {
-    if (!this.flag) {
+    if (!this.flag && !this.isOpen) {
       this.isOpen = true;
       if (this.num === MINE) {
         globalThis.dispatchEvent(new CustomEvent('gameOver'));
       } else if (this.num !== MINE) {
         this.neighbor.forEach(i => {
           if (
-            (i.x === this.x || i.y !== this.y) &&
+            (this.num === EMPTY || (i.x === this.x || i.y !== this.y)) &&
             i.num !== MINE && !i.isOpen
           ) {
             if (i.num === EMPTY) {
