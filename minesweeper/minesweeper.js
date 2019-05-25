@@ -27,13 +27,13 @@ filedEl.addEventListener('pointerdown', (e) => {
   }
   pDownTimerId = setTimeout(() => {
     if (pDowns >= 2) {
-      if (e.target.cell) {
+      if (e.target['cell']) {
         if (!first) {
-          e.target.cell.num = 0;
-          e.target.cell.neighbor = e.target.cell.neighbor;
+          e.target['cell'].num = 0;
+          e.target['cell'].neighbor = e.target['cell'].neighbor;
           first = true;
         }
-        e.target.cell.open();
+        e.target['cell'].open();
         if (cells.every(i => i.every(i => (i.num > -1 && i.isOpen) || (i.num === -1 && !i.isOpen)))) {
           win();
         }
@@ -44,15 +44,15 @@ filedEl.addEventListener('pointerdown', (e) => {
 });
 
 filedEl.addEventListener('click', (e) => {
-  if (e.target.cell) {
-    e.target.cell.scan();
+  if (e.target['cell']) {
+    e.target['cell'].scan();
   }
 });
 filedEl.addEventListener('contextmenu', (e) => {
   e.preventDefault();
   e.stopPropagation();
-  if (e.target.cell) {
-    e.target.cell.stFlag();
+  if (e.target['cell']) {
+    e.target['cell'].stFlag();
   }
 });
 function gameOver() {
