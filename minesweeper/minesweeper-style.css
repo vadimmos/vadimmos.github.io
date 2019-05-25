@@ -1,0 +1,75 @@
+#field{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+#timer{
+  align-self: center;
+  justify-self: flex-end;
+  margin-right: 48px;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+.cell{
+  height: 48px;
+  width: 48px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 4px;
+  border-top-color: whitesmoke;
+  border-left-color: whitesmoke;
+  border-bottom-color: darkgreen;
+  border-right-color: brown;
+  cursor: pointer;
+  background-color: gray;
+  user-select: none;
+  font-size: 2em;
+  text-align: center;
+}
+.cell:hover{
+  filter: brightness(1.2);
+}
+.cell[flag]{
+  background-image: url('./flag.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.cell[open]{
+  border: none;
+  background-color: white;
+}
+.cell[open][num="1"]{
+  color: blue;
+}
+.cell[open][num="2"]{
+  color: red;
+}
+.cell[open][num="3"]{
+  color: green;
+}
+.cell[open][num="4"]{
+  color: pink;
+}
+.cell[open][num="5"]{
+  color: blue;
+}
+.cell[open][num="6"]{
+  color: red;
+}
+.cell[open][num="7"]{
+  color: green;
+}
+.cell[open][num="8"]{
+  color: pink;
+}
+.cell[open][num="-1"]{
+  background-image: url('./icon.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
