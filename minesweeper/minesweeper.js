@@ -109,7 +109,7 @@ function startGame() {
 function win() {
   clearInterval(timerId);
   const h1 = document.createElement('h1');
-  h1.innerText = 'You are win!';
+  h1.innerText = 'You win!';
   h1.style.position = 'fixed';
   h1.style.fontSize = '10vh';
   h1.style.color = 'red';
