@@ -129,8 +129,8 @@ function win() {
   {
     let width = Math.round(globalThis.innerWidth);
     let height = Math.round(globalThis.innerHeight);
-    let left = Math.round(globalThis.innerWidth / 2);
-    let top = Math.round(globalThis.innerHeight / 2);
+    let left = (Math.random() - 0.5)  * Math.round(globalThis.innerWidth / 2);
+    let top = (Math.random() - 0.5) * Math.round(globalThis.innerHeight / 2);
     const entId = setInterval(() => {
       elems.forEach(e => {
         left += Math.round(Math.max((Math.random() - 0.5) * 50, -50));
