@@ -30,7 +30,7 @@ filedEl.addEventListener('pointerdown', (e) => {
       if (e.target['cell']) {
         if (!first) {
           e.target['cell'].num = 0;
-          e.target['cell'].neighbor = e.target['cell'].neighbor;
+          e.target['cell'].neighbor = [...e.target['cell'].neighbor];
           first = true;
         }
         e.target['cell'].open();
