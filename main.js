@@ -1,4 +1,4 @@
+import Menu from "./components/menu/menu.js"
+
 const logo = document.getElementById('logo');
-logo.addEventListener('click', () => {
-  globalThis.location.href = '/';
-});
+const menu = new Menu('./menu.json', logo);

@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Main page",
+    "url": "/",
+    "iconPath": "/images/icons/icon-72x72.png"
+  },
+  {
+    "label": "Minesweeper",
+    "url": "/minesweeper",
+    "iconPath": "/minesweeper/icon.png"
+  }
+]
