@@ -21,6 +21,7 @@ timer.addEventListener('click', () => {
 let pDowns = 0;
 let pDownTimerId = 0;
 filedEl.addEventListener('pointerdown', (e) => {
+  if(e.buttons !== 0) return;
   pDowns++;
   if (pDownTimerId) {
     clearTimeout(pDownTimerId);
