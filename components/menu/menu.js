@@ -27,6 +27,7 @@ class Menu {
     this.body.style.backgroundColor = 'var(--main-bg-color, gray)';
     this.body.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.5)';
     this.body.style.padding = '4px 8px';
+    this.body.style.width = '100%';
 
     /** @type {boolean} */
     this._isOpen = false;
