@@ -10,8 +10,8 @@
     "iconPath": "/minesweeper/icon.png"
   },
   {
-    "label": "web bluetooth",
-    "url": "/web-bluetooth",
-    "iconPath": "/web-bluetooth/icon.png"
+    "label": "prezentator",
+    "url": "/prezentator",
+    "iconPath": "/prezentator/icon.png"
   }
 ]
