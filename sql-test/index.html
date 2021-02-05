@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./main.js" type="module"></script>
+</head>
+<body class="vertical" style="height: 100%;">
+  <style>
+    section{
+      max-height: 50%;
+    }
+    section, ul{
+      outline: 1px solid var(--second-bg-color);
+      margin: 1px;
+    }
+    textarea{
+      border: none;
+      resize: none;
+    }
+  </style>
+  <div class="vertical no-flex">
+    <script src="/components/vb-header/vb-header.js" type="module"></script>
+    <header is="vb-header"></header>
+  </div>
+  <div class="vertical flex">
+    <section id="output" class="flex horizontal" style="padding: 8px; overflow: auto;"></section>
+    <section id="input" class="vertical flex ovh" style="max-height: 50%;">
+      <div class="vertical flex ovh">
+        <div class="horizontal flex ovh">
+          <style>
+          .drawer{
+            width: 25%;
+          }
+          .drawer.closed{
+            width: 0;
+          }
+          ul>li{
+            padding: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          ul>li>a{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        </style>
+          <ul id="suggestions" class="drawer ova"></ul>
+          <textarea id="query" class="flex ova" name="query"></textarea>
+          <ul id="history" class="drawer ova"></ul>
+        </div>
+        <div class="horizontal" style="padding: 4px;">
+          <style scoped>
+          button.q{
+            margin: 2px;
+          }
+        </style>
+          <button class="flex q" onclick="query.value = '';" style="background-color: darkred;">❌</button>
+          <button id="sendBtn" class="flex q" style="background-color: green;">✔</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <template id="line">
+    <li><a></a></li>
+  </template>
+</body>
+</html>

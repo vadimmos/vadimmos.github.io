@@ -1,138 +1,124 @@
-:root{
-  --main-bg-color: rgb(158, 158, 158);
-  --main-text-color: whitesmoke;
+:root {
+  --main-bg-color: #353535;
+  --second-bg-color: #6e6e6e;
+  --main-color: #f5f5f5;
+  --main-font-family: Roboto, Noto, sans-serif;
+  --href-color: rgb(64, 255, 255);
+  --href-visited-color: rgb(255, 64, 255);
 }
-body{
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-direction: column;
+
+html, body {
   background-color: var(--main-bg-color);
-  color: var(--main-text-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-h1, h2, h3, h4, h5, h6{
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-header{
-  margin-bottom: 16px;
-}
-main{
-  padding: 4px 8px;
-}
-nav > ul{
+  color: var(--main-color);
+  font-family: var(--main-font-family);
   display: flex;
   flex-direction: column;
-}
-nav > ul > li{
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-}
-nav > ul > li > img, nav > ul > li > a > img{
-  max-width: 1em;
-  max-height: 1em;
-}
-nav > ul > li > *, nav > ul > li > a > *{
-  min-height: 24px;
-  min-width: 24px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: flex;
-  flex-direction: row;
-  flex-basis: auto;
-  flex-shrink: 0;
-  flex-grow: 1;
-  align-items: center;
-  text-align: center;
-  margin-right: 4px;
 }
 
-#logo{
-  display: flex;
-  flex-direction: row;
-}
-#logo::after{
-  content: 'vadimmos';
-  display: inline-flex;
-}
-#logo::before{
-  content: '';
-  display: inline-flex;
-  background-image: url(images/icons/icon-72x72.png);
-  width: 43px;
-  height: 43px;
-  background-repeat: no-repeat;
-  background-size: contain;
+html {
+  height: 100vh;
+  width: 100vw;
 }
 
-.flex{
-  flex-basis: auto;
-  flex-shrink: 0;
-  flex-grow: 1;
+body {
+  flex: auto;
 }
-.no-flex{
-  flex-basis: auto;
-  flex-shrink: 0;
-  flex-grow: 0;
+
+html, body, h1, h2, h3, h4, h5, h6, .m-p-0 {
+  margin: 0;
+  padding: 0;
 }
-.horizontal{
-  display: flex;
-  flex-direction: row;
+
+h1 {
+  font-size: 1.7em;
 }
-.horizontal-rev{
-  display: flex;
-  flex-direction: row-reverse;
+
+header {
+  padding: 8px;
 }
-.vertical{
-  display: flex;
-  flex-direction: column;
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.vertical-rev{
-  display: flex;
-  flex-direction: column-reverse;
+
+a {
+  color: var(--href-color);
 }
-.center{
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+
+a:visited {
+  color: var(--href-visited-color);
 }
-.raised{
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+
+textarea {
+  background-color: transparent;
+  color: inherit;
 }
-button{
-  background-color: rgb(255, 255, 255);
-  margin: 4px 8px;
-  padding: 4px 8px;
-  display: flex;
-  flex-direction: column;
+
+button {
+  background-color: var(--main-bg-color);
   opacity: 0.8;
-  cursor: pointer;
-  min-width: 24px;
-  min-height: 24px;
-  align-items: center;
-  justify-content: center;
-  outline-offset: -1px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-basis: auto;
-  flex-shrink: 0;
-  flex-grow: 0;
-  border: none;
-  font-size: 110%;
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+  color: var(--main-color);
   user-select: none;
+  padding: 8px;
+  border-style: none;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  margin: 1px;
 }
-button:hover{
+
+button:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+button:active {
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.33);
   opacity: 1;
-  box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
-button:hover{
-  transition: all 0.1s;
+
+*[disabled], *:disabled {
+  opacity: 0.5;
 }
-button:active{
-  background-color: rgb(210, 210, 210);
-  opacity: 1;
-  box-shadow: none;
+
+.m-0 {
+  margin: 0;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.raised {
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.center {
+  align-items: center;
+}
+
+.horizontal, .vertical {
+  display: flex;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.flex {
+  flex: auto;
+}
+
+.no-flex {
+  flex: 0 0 auto;
+}
+
+[hidden], .hidden {
+  display: none;
 }

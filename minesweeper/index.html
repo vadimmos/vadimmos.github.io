@@ -5,15 +5,14 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/style.css">
-  <script src="./main.js" type="module"></script>
   <link rel="stylesheet" href="./minesweeper-style.css">
-  <script src="minesweeper.js" type="module"></script>
+  <script src="./minesweeper.js" type="module"></script>
   <title>minesweeper</title>
 </head>
 <body>
-  <header class="horizontal raised">
-    <h1 id="logo" title="valimmos" role="heading" class="flex"></h1>
-    <h1 id="timer" class="no-flex"></h1>
+  <script src="/components/vb-header/vb-header.js" type="module"></script>
+  <header is="vb-header">
+     <h1 id="timer" class="no-flex" style="cursor: pointer; user-select: none;"></h1>
   </header>
   <main>
     <div id="field"></div>

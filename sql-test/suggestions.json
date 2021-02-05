@@ -1,0 +1,18 @@
+[
+  "CREATE ",
+  "DROP ",
+  "SELECT ",
+  "COUNT ",
+  "FROM ",
+  "WHERE ",
+  "LIKE ",
+  "HAVING ",
+  "BETWEEN ",
+  "GROUP BY ",
+  "ORDER BY ",
+  "JOIN ",
+  "ON ",
+  "CREATE TABLE tableName (id REAL UNIQUE, label TEXT, timestamp REAL)",
+  "INSERT INTO tableName (id, label, timestamp) VALUES (1, asd, 1612478448382)",
+  "DELETE FROM tableName"
+]

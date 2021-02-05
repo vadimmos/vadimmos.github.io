@@ -6,13 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>vadimmos</title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/main.js" type="module"></script>
+  <!-- <script src="/main.js" type="module"></script> -->
 </head>
 <body>
-  <header class="horizontal raised">
-    <h1 id="logo" title="valimmos" role="heading"></h1>
-  </header>
-  <main>
+  <script src="/components/vb-header/vb-header.js" type="module"></script>
+  <header is="vb-header"></header>
+  <main style="padding: 24px; display: flex;justify-content: center;">
+    <ul>
+      <li>
+        <a href="/sql-test/index.html">SQL</a>
+      </li>
+      <li>
+        <a href="/minesweeper/index.html">minesweeper</a>
+      </li>
+    </ul>
   </main>
 </body>
 </html>
