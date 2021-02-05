@@ -50,7 +50,7 @@
           }
         </style>
           <ul id="suggestions" class="drawer ova"></ul>
-          <textarea id="query" class="flex ova" name="query"></textarea>
+          <textarea id="query" placeholder="запросы писать сюда" class="flex ova" name="query"></textarea>
           <ul id="history" class="drawer ova"></ul>
         </div>
         <div class="horizontal" style="padding: 4px;">
@@ -68,5 +68,6 @@
   <template id="line">
     <li><a></a></li>
   </template>
+  <script>query.focus();</script>
 </body>
 </html>
