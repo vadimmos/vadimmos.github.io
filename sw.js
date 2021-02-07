@@ -7,8 +7,6 @@ const staticAssets = [
   '/images/icons/icon-128x128.png',
   '/images/icons/icon-192x192.png',
   '/style.css',
-  '/components/',
-  '/components/vb-header/',
   '/components/vb-header/vb-header.js',
 ];
 self.addEventListener('install', async e => {
