@@ -1,7 +1,10 @@
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('/sw.js')
-//     .then(() => navigator.serviceWorker.ready.then((worker) => {
-//       worker.sync.register('syncdata');
-//     }))
-//     .catch((err) => console.log(err));
-// }
+window.addEventListener('load', async () => {
+  if ('serviceWorker' in navigator) {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js')
+      console.log('Service worker successfully registered', reg);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+});
