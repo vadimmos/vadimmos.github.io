@@ -1,0 +1,20 @@
+{
+  "name": "vadimmos.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vadimmos/vadimmos.github.io.git"
+  },
+  "keywords": [],
+  "author": "vadimmos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vadimmos/vadimmos.github.io/issues"
+  },
+  "homepage": "https://vadimmos.github.io"
+}
