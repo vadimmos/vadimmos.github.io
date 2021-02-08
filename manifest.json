@@ -1,8 +1,8 @@
 {
   "name": "vadimmos-app",
   "short_name": "vadapp",
-  "theme_color": "#646464",
-  "background_color": "#2196f3",
+  "theme_color": "#353535",
+  "background_color": "#353535",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",
