@@ -34,7 +34,7 @@ function handleOrientation(event) {
 
   let bg = '0'
 
-  for (let deg = -180, idx = 0; deg < 180; deg += 45, idx++) {
+  for (let deg = 0, idx = 0; deg < 360; deg += 45, idx++) {
     if (alpha >= deg && alpha < deg + 45) {
       bg = idx.toString();
       break;
