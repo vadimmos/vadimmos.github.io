@@ -3,7 +3,7 @@ if (indicator && typeof Gyroscope === "function") {
   window.addEventListener("deviceorientation", handleOrientation, true);
 }
 
-const DIR_MAP = ['n', 'nw', 'w', 'ws', 's', 'sw', 'w', 'wn'];
+const DIR_MAP = ['n', 'ne', 'e', 'es', 's', 'sw', 'w', 'wn'];
 
 let debug = null;
 let id = 0;
