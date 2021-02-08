@@ -21,21 +21,21 @@ function handleOrientation(event) {
   let bg = '0'
 
   if (deg >= 337.5 && deg < 22.5) {
-    bg = '4';
+    bg = 'n';
   } else if (deg >= 22.5 && deg < 67.5) {
-    bg = '5';
+    bg = 'ne';
   } else if (deg >= 67.5 && deg < 112.5) {
-    bg = '6';
+    bg = 'e';
   } else if (deg >= 112.5 && deg < 157) {
-    bg = '7';
+    bg = 'es';
   } else if (deg >= 157 && deg < 202.5) {
-    bg = '0';
+    bg = 's';
   } else if (deg >= 202.5 && deg < 247.5) {
-    bg = '1';
+    bg = 'sw';
   } else if (deg >= 247.5 && deg < 292.5) {
-    bg = '2';
+    bg = 'w';
   } else if (deg >= 292.5 && deg < 337.5) {
-    bg = '3';
+    bg = 'wn';
   }
     indicator.style.setProperty('background-image', `url("./img/${bg}.png")`);
   }
