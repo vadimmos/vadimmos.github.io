@@ -17,7 +17,8 @@ if (indicator && 'geolocation' in navigator) {
 
 /** @type {PositionCallback}*/
 function success(pos) {
-  indicator.textContent = `target: ${JSON.stringify(TARGET)}\r\ncurrent:${JSON.stringify(pos.coords)}`;
+  const coords = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
+  indicator.textContent = `target: ${JSON.stringify(TARGET)}\r\ncurrent:${JSON.stringify(coords)}`;
 }
 function error(err) {
   indicator.style.setProperty('color', 'red');
