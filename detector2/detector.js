@@ -18,6 +18,8 @@ function success(pos) {
   indicator.textContent = `target: ${JSON.stringify(TARGET)}\r\ncurrent:${JSON.stringify(pos)}`;
 }
 function error(err) {
+  indicator.style.setProperty('color', 'red');
+  indicator.textContent = JSON.stringify(err);
   console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 indicator.style.setProperty('background-image', `url("./img/${bg}.png")`);
