@@ -12,30 +12,13 @@ function handleOrientation(event) {
   const rad = Math.atan2(beta, gamma);
   const deg = rad * (180 / Math.PI) + 180;
 
-
-  console.log(beta);
-  console.log(gamma);
-  console.log(deg);
-  console.log('');
-
   let bg = '0'
 
-  if (deg >= 337.5 && deg < 22.5) {
-    bg = '4';
-  } else if (deg >= 22.5 && deg < 67.5) {
-    bg = '5';
-  } else if (deg >= 67.5 && deg < 112.5) {
-    bg = '6';
-  } else if (deg >= 112.5 && deg < 157) {
-    bg = '7';
-  } else if (deg >= 157 && deg < 202.5) {
-    bg = '0';
-  } else if (deg >= 202.5 && deg < 247.5) {
-    bg = '1';
-  } else if (deg >= 247.5 && deg < 292.5) {
-    bg = '2';
-  } else if (deg >= 292.5 && deg < 337.5) {
-    bg = '3';
+  for(let deg = -180, idx = 0;deg < 180; deg += 45, idx++){
+    if (alpha >= deg && alpha < deg + 45){
+      bg = idx.toString();
+      break;
+    }
   }
     indicator.style.setProperty('background-image', `url("./img/${bg}.png")`);
   }
