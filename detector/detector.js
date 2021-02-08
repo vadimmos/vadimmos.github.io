@@ -3,6 +3,29 @@ if (indicator && typeof Gyroscope === "function") {
   window.addEventListener("deviceorientation", handleOrientation, true);
 }
 
+const DIR_MAP = ['n', 'nw', 'w', 'ws', 's', 'sw', 'w', 'wn'];
+
+let debug = null;
+let id = 0;
+let count = 0;
+function cheat() {
+  clearTimeout(id);
+  count++;
+  id = setTimeout(() => {
+    if (count >= 10) {
+      window.removeEventListener('click', cheat);
+      debug = document.createElement('div');
+      debug.style.setProperty('position', 'fixed');
+      debug.style.setProperty('top', '100px');
+      debug.style.setProperty('left', '45%');
+      debug.style.setProperty('color', 'red');
+      document.body.appendChild(debug);
+    }
+    count = 0;
+  }, 1000);
+}
+window.addEventListener('click', cheat);
+
 function handleOrientation(event) {
   const absolute = event.absolute;
   const alpha = event.alpha;
@@ -12,30 +35,16 @@ function handleOrientation(event) {
   const rad = Math.atan2(beta, gamma);
   const deg = rad * (180 / Math.PI) + 180;
 
-
-  console.log(beta);
-  console.log(gamma);
-  console.log(deg);
-  console.log('');
-
   let bg = '0'
 
-  if (deg >= 337.5 && deg < 22.5) {
-    bg = 'n';
-  } else if (deg >= 22.5 && deg < 67.5) {
-    bg = 'ne';
-  } else if (deg >= 67.5 && deg < 112.5) {
-    bg = 'e';
-  } else if (deg >= 112.5 && deg < 157) {
-    bg = 'es';
-  } else if (deg >= 157 && deg < 202.5) {
-    bg = 's';
-  } else if (deg >= 202.5 && deg < 247.5) {
-    bg = 'sw';
-  } else if (deg >= 247.5 && deg < 292.5) {
-    bg = 'w';
-  } else if (deg >= 292.5 && deg < 337.5) {
-    bg = 'wn';
+  for (let deg = 0, idx = 0; deg < 360; deg += 45, idx++) {
+    if (alpha >= deg && alpha < deg + 45) {
+      bg = DIR_MAP[idx];
+      break;
+    }
   }
-    indicator.style.setProperty('background-image', `url("./img/${bg}.png")`);
+  if (debug) {
+    debug.textContent = alpha;
   }
+  indicator.style.setProperty('background-image', `url("./img/${bg}.png")`);
+}
