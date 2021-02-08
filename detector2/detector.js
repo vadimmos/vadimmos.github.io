@@ -7,7 +7,9 @@ const TARGET = { latitude: 54.644905, longitude: 39.656434 };
 if (indicator && 'geolocation' in navigator) {
   indicator.style.setProperty('color', 'lime');
   indicator.style.setProperty('white-space', 'pre');
-  navigator.geolocation.watchPosition(success, error, { enableHighAccuracy: true, timeout: 1000, maximumAge: 0 });
+  navigator.geolocation.getCurrentPosition(() => {
+    navigator.geolocation.watchPosition(success, error, { enableHighAccuracy: true, timeout: 1000, maximumAge: 0 });
+  });
 } else {
   indicator.style.setProperty('color', 'red');
   indicator.textContent = 'ERROR';
