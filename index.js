@@ -15,6 +15,6 @@ window.addEventListener('load', async () => {
     new MenuItem('minesweeper', '/minesweeper'),
     new MenuItem('detector', '/detector'),
     new MenuItem('detector 2', '/detector2'),
-    new MenuItem('S.E.A.R.C.H.E.R.', '/s.e.a.r.c.h.e.r.'),
+    new MenuItem('S.E.A.R.C.H.E.R.', '/searcher'),
   ]
 });
