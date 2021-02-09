@@ -1,5 +1,5 @@
-const staticCacheName = 'static-cache-v2';
-const dynamicCacheName = 'dynamic-cache-v2';
+const staticCacheName = 'static-cache-v3';
+const dynamicCacheName = 'dynamic-cache-v3';
 const staticAssets = [
   '/',
   '/index.html',
@@ -7,7 +7,8 @@ const staticAssets = [
   '/images/icons/icon-128x128.png',
   '/images/icons/icon-192x192.png',
   '/style.css',
-  '/components/vb-header/vb-header.js',
+  '/components/header/header.js',
+  '/components/menu/menu.js',
 ];
 self.addEventListener('install', async e => {
   const preCache = async () => {

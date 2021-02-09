@@ -4,34 +4,19 @@
   <meta charset="UTF-8">
   <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#353535">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
   <meta name="Description" content="vadimmos portal">
   <title>vadimmos</title>
-  <script src="/index.js" type="module"></script>
   <link rel="stylesheet" href="/style.css">
-  <!-- <script src="/main.js" type="module"></script> -->
+  <script src="/components/header/header.js" type="module"></script>
+  <script src="/components/menu/menu.js" type="module"></script>
+  <script src="/index.js" type="module"></script>
 </head>
 <body>
-  <script src="/components/vb-header/vb-header.js" type="module"></script>
   <header is="vb-header"></header>
   <main style="padding: 24px; display: flex;justify-content: center;">
-    <ul class="menu">
-      <li>
-        <img src="/sql-test/icon.png" onerror="this.src='/favicon.ico'" alt="sql-test icon">
-        <a href="/sql-test/index.html" title="SQL" aria-label="SQL">SQL</a>
-      </li>
-      <li>
-        <img src="/minesweeper/icon.png" onerror="this.src='/favicon.ico'" alt="minesweeper icon">
-        <a href="/minesweeper/index.html" title="minesweeper" aria-label="minesweeper">minesweeper</a>
-      </li>
-      <li>
-        <img src="/detector/icon.png" onerror="this.src='/favicon.ico'" alt="detector icon">
-        <a href="/detector/index.html" title="detector" aria-label="detector">detector</a>
-      </li>
-      <li>
-        <img src="/detector2/icon.png" onerror="this.src='/favicon.ico'" alt="detector2 icon">
-        <a href="/detector2/index.html" title="detector2" aria-label="detector2">detector2</a>
-      </li>
-    </ul>
+    <ul is="vb-menu" id="mainMenu"></ul>
   </main>
 </body>
 </html>

@@ -1,3 +1,4 @@
+import { MenuItem, VBMenu } from './components/menu/menu.js'
 window.addEventListener('load', async () => {
   if ('serviceWorker' in navigator) {
     try {
@@ -7,4 +8,13 @@ window.addEventListener('load', async () => {
       console.error(err);
     }
   }
+  const mainMenu = document.getElementById('mainMenu');
+  if (mainMenu && mainMenu instanceof VBMenu)
+  mainMenu.items = [
+    new MenuItem('SQL', '/sql-test'),
+    new MenuItem('minesweeper', '/minesweeper'),
+    new MenuItem('detector', '/detector'),
+    new MenuItem('detector 2', '/detector2'),
+    new MenuItem('s.e.a.r.c.h.e.r.', '/s.e.a.r.c.h.e.r.'),
+  ]
 });

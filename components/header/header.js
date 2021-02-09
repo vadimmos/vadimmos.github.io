@@ -14,8 +14,5 @@ class VBHeader extends HTMLElement{
     h1.appendChild(a);
     this.appendChild(h1);
   }
-  connectedCallback(){
-
-  }
 }
 window.customElements.define('vb-header', VBHeader, { extends: 'header'});
