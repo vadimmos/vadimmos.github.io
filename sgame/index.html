@@ -14,7 +14,14 @@
 </head>
 <body>
   <header is="vb-header"></header>
-  <main>
+  <main style="padding: 24px; display: flex;justify-content: center;">
+    <ul is="vb-menu" id="mainMenu"></ul>
+    <script type="module">
+      import { MenuItem } from '/components/menu/menu.js'
+      mainMenu.items = [
+        new MenuItem('detectors', './detectors'),
+      ]
+    </script>
   </main>
 </body>
 </html>
