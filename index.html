@@ -10,14 +10,14 @@
   <title>vadimmos</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/components/header/header.js" type="module"></script>
-  <script src="/components/menu/menu.js" type="module"></script>
   <script src="/index.js" type="module"></script>
 </head>
 <body>
   <header is="vb-header"></header>
   <main style="padding: 24px; display: flex;justify-content: center;">
     <ul is="vb-menu" id="mainMenu"></ul>
-    <script>
+    <script type="module">
+      import { MenuItem } from '/components/menu/menu.js'
       mainMenu.items = [
         new MenuItem('SQL', '/sql-test'),
         new MenuItem('minesweeper', '/minesweeper'),
