@@ -8,13 +8,4 @@ window.addEventListener('load', async () => {
       console.error(err);
     }
   }
-  const mainMenu = document.getElementById('mainMenu');
-  if (mainMenu && mainMenu instanceof VBMenu)
-  mainMenu.items = [
-    new MenuItem('SQL', '/sql-test'),
-    new MenuItem('minesweeper', '/minesweeper'),
-    new MenuItem('detector', '/detector'),
-    new MenuItem('detector 2', '/detector2'),
-    new MenuItem('S.E.A.R.C.H.E.R.', '/sgame'),
-  ]
 });

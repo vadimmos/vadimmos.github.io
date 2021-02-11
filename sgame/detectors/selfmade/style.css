@@ -1,0 +1,23 @@
+self-made-detector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: auto;
+  /* background-image: url('./img/bg.png'); */
+  background-image: url('./img/preview.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+/* self-made-detector::after {
+  content: '';
+  background-image: url('./img/switch/base.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  overflow: hidden;
+} */
