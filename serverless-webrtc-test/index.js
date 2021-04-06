@@ -57,6 +57,7 @@ function start(){
           img.src = drawCanvas(imageBitmap);
           const barcodes = await barcodeDetector.detect(img);
           barcodes.forEach(barcode => {
+            alert(JSON.stringify(barcode));
             if (barcode.rawValue) {
               clearInterval(interval);
               btn.disabled = false;
