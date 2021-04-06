@@ -1,5 +1,8 @@
 import './qr.js';
 const body = document.body;
+const main = document.querySelector('main');
+main.style.setProperty('flex-direction', 'column');
+main.style.setProperty('align-items', 'center');
 
 const qr = document.createElement('qr-code');
 body.appendChild(qr);
@@ -9,8 +12,6 @@ qr.data = 'какой-то текст';
 if (!('BarcodeDetector' in window)) {
   alert('нету BarcodeDetector');
 } else {
-  const main = document.querySelector('main');
-  main.style.setProperty('flex-direction', 'column');
   const video = document.createElement('video');
   
   const cnv = document.createElement('canvas');
@@ -45,11 +46,11 @@ if (!('BarcodeDetector' in window)) {
 
       const interval = setInterval(async () => {
         const imageBitmap = await imageCapture.grabFrame();
+        img.src = drawCanvas(imageBitmap);
         const barcodes = await barcodeDetector.detect(img);
         barcodes.forEach(barcode => {
           clearInterval(interval);
           alert(barcode.rawData);
-          img.src = drawCanvas(imageBitmap);
         });
       }, 300);
     })
