@@ -1,5 +1,5 @@
-const staticCacheName = 'static-cache-v9';
-const dynamicCacheName = 'dynamic-cache-v9';
+const staticCacheName = 'static-cache-v10';
+const dynamicCacheName = 'dynamic-cache-v10';
 const staticAssets = [
   '/',
   '/index.html',
@@ -12,6 +12,11 @@ const staticAssets = [
 ];
 self.addEventListener('install', async e => {
   const preCache = async () => {
+    await caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.filter((cacheName) => !([staticCacheName, dynamicCacheName].includes(cacheName))).map((cacheName) => caches.delete(cacheName))
+      );
+    });
     const cache = await caches.open(staticCacheName);
     return await cache.addAll(staticAssets);
   };
