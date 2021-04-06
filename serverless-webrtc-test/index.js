@@ -5,7 +5,7 @@ main.style.setProperty('flex-direction', 'column');
 main.style.setProperty('align-items', 'center');
 
 const qr = document.createElement('qr-code');
-body.appendChild(qr);
+main.appendChild(qr);
 qr.data = 'какой-то текст';
 
 
