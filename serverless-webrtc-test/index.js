@@ -34,7 +34,7 @@ if (!('BarcodeDetector' in window)) {
   const ctx = cnv.getContext('2d');
   const img = new Image();
   main.appendChild(img);
-  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }, audio: false })
     .then(async (stream) => {
       video.srcObject = stream;
       video.play();
