@@ -1,5 +1,5 @@
-const staticCacheName = 'static-cache-v3';
-const dynamicCacheName = 'dynamic-cache-v3';
+const staticCacheName = 'static-cache-v4';
+const dynamicCacheName = 'dynamic-cache-v4';
 const staticAssets = [
   '/',
   '/index.html',
@@ -40,7 +40,7 @@ async function checkCache(req) {
   }
   const cachedResponse = await caches.match(req);
   const online = await checkOnline(req);
-  return cachedResponse || online;
+  return online ?? cachedResponse;
 }
 async function checkOnline(req) {
   const cache = await caches.open(dynamicCacheName);
