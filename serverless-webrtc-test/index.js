@@ -57,10 +57,10 @@ function start(){
           img.src = drawCanvas(imageBitmap);
           const barcodes = await barcodeDetector.detect(img);
           barcodes.forEach(barcode => {
-            if (barcode.rawData) {
+            if (barcode.rawValue) {
               clearInterval(interval);
               btn.disabled = false;
-              alert(barcode.rawData);
+              alert(barcode.rawValue);
             }
           });
         }, 300);
