@@ -43,6 +43,10 @@ function render() {
     label.textContent = i.text;
     label.title = i.text;
     li.appendChild(label);
+    const showBtn = document.createElement('button');
+    showBtn.textContent = '👁';
+    showBtn.addEventListener('click', () => { showText(label.textContent); });
+    li.appendChild(showBtn);
     const editBtn = document.createElement('button');
     editBtn.textContent = '✎';
     editBtn.addEventListener('click', () => { edit(idx); });
@@ -88,4 +92,7 @@ function clear() {
     save();
     render();
   }
+}
+function showText(text){
+  alert(text);
 }

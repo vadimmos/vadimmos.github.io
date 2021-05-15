@@ -27,6 +27,7 @@ ul.to-do{
   padding: 8px;
   cursor: default;
   overflow: auto;
+  min-width: 200px;
 }
 ul.to-do>li{
   display: flex;
@@ -44,10 +45,11 @@ ul.to-do>li>div{
   text-overflow: ellipsis;
   cursor: default;
   font-size: 24px;
+  white-space: nowrap;
 }
 ul.to-do>li>input[type="checkbox" i]{
-  width: 32px;
-  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
 }
 ul.to-do>li>input[type="checkbox" i]:checked + div{
   text-decoration: line-through;
