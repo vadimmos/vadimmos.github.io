@@ -39,7 +39,7 @@ export class MenuItem {
     return `${this.path}/${this.icon}`
   }
   get href() {
-    return `${this.path}/index.html`
+    return !this.path.endsWith('.html') ? `${this.path}/index.html` : this.path;
   }
 }
 const style = document.createElement('style');

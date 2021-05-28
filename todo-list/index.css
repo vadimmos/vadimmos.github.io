@@ -5,7 +5,7 @@ html, body{
   flex-direction: column;
   flex: auto;
   height: 100%;
-  font-family: system-ui;
+  font-family: Roboto, Noto, sans-serif;
   overflow: hidden;
 }
 *{
