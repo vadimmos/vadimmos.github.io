@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <link rel="manifest" href="/manifest.json">
@@ -12,6 +13,7 @@
   <script src="/components/header/header.js" type="module"></script>
   <script src="/index.js" type="module"></script>
 </head>
+
 <body>
   <header is="vb-header"></header>
   <main style="padding: 24px; display: flex;justify-content: center;">
@@ -19,13 +21,12 @@
     <script type="module">
       import { MenuItem } from '/components/menu/menu.js'
       mainMenu.items = [
-        new MenuItem('ToDo list', '/todo-list'),
-        new MenuItem('SQL', '/sql-test'),
-        new MenuItem('minesweeper', '/minesweeper'),
-        new MenuItem('detector', '/detector'),
-        new MenuItem('other', 'other.html'),
+        new MenuItem('detector 2', '/detector2'),
+        new MenuItem('S.E.A.R.C.H.E.R.', '/sgame'),
+        new MenuItem('serverless-webrtc-test', '/serverless-webrtc-test'),
       ]
     </script>
   </main>
 </body>
+
 </html>
