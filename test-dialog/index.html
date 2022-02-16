@@ -20,14 +20,19 @@
     dialog form p{
       padding: 16px;
     }
+    dialog form fieldset{
+      min-width: auto;
+    }
     dialog form label{
       padding: 4px 8px;
       display: flex;
       flex-direction: row;
       align-items: center;
+      gap: 8px;
     }
     dialog form label div{
       flex: 1 1 auto;
+      white-space: nowrap;
     }
     dialog form label input, dialog form label select{
       flex: 10 10 auto;
@@ -35,6 +40,9 @@
       padding: 2px 4px;
       box-sizing: border-box;
       border: 1px solid var(--main-color);
+      min-width: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     dialog form label select{
       flex: 14 10 auto; /* хз */
@@ -76,37 +84,39 @@
         <p>Это стандартный диалог, который браузер поддерживает из коробки!</p>
         <fieldset class="vertical">
           <legend>Группа полей</legend>
-          <label for="f1">
-            <div>Поле 1: </div>
-            <input name="f1" id="f1" value="значение по умолчанию">
-          </label>
-          <label for="f2">
-            <div>Поле 2: </div>
-            <input name="f2" id="f2" value="значение по умолчанию">
-          </label>
-          <label for="f3">
-            <div>Поле 3: </div><select name="f3" id="f3">
-              <option value="1" selected>значение 1</option>
-              <option value="2">значение 2</option>
-              <option value="3">значение 3</option>
-              <option value="4">значение 4</option>
-            </select>
-          </label>
-          <fieldset>
-            <legend>Чиво</legend>
-            <label for="radio1">
-              <input type="radio" name="f4" id="radio1" value="1">
-              <div>1</div>
+          <section>
+            <label for="f1">
+              <div>Поле 1:</div>
+              <input name="f1" id="f1" value="значение по умолчанию">
             </label>
-            <label for="radio2">
-              <input type="radio" checked name="f4" id="radio2" value="2">
-              <div>2</div>
+            <label for="f2">
+              <div>Поле 2:</div>
+              <input name="f2" id="f2" value="значение по умолчанию">
             </label>
-            <label for="radio3">
-              <input type="radio" name="f4" id="radio3" value="3">
-              <div>3</div>
+            <label for="f3">
+              <div>Поле 3:</div><select name="f3" id="f3">
+                <option value="1" selected>значение 1</option>
+                <option value="2">значение 2</option>
+                <option value="3">значение 3</option>
+                <option value="4">значение 4</option>
+              </select>
             </label>
-          </fieldset>
+            <fieldset>
+              <legend>Чиво</legend>
+              <label for="radio1">
+                <input type="radio" name="f4" id="radio1" value="1">
+                <div>1</div>
+              </label>
+              <label for="radio2">
+                <input type="radio" checked name="f4" id="radio2" value="2">
+                <div>2</div>
+              </label>
+              <label for="radio3">
+                <input type="radio" name="f4" id="radio3" value="3">
+                <div>3</div>
+              </label>
+            </fieldset>
+          </section>
         </fieldset>
       </section>
       <footer>
