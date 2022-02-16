@@ -5,12 +5,18 @@
   --main-font-family: Roboto, Noto, sans-serif;
   --href-color: rgb(64, 255, 255);
   --href-visited-color: rgb(255, 64, 255);
+  --error-color: rgb(255, 64, 64);
+  --warning-color: rgb(255, 210, 64);
+  --success-color: rgb(0 170 15);
 }
 
-html, body {
+html, body, dialog {
   background-color: var(--main-bg-color);
   color: var(--main-color);
   font-family: var(--main-font-family);
+}
+
+html, body{
   display: flex;
   flex-direction: column;
 }
@@ -26,6 +32,9 @@ body {
 
 html, body, h1, h2, h3, h4, h5, h6, .m-p-0 {
   margin: 0;
+}
+
+html, body, dialog, h1, h2, h3, h4, h5, h6, .m-p-0 {
   padding: 0;
 }
 
@@ -37,7 +46,7 @@ header {
   padding: 8px;
 }
 
-ul {
+ul, menu {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -54,6 +63,10 @@ a:visited {
 textarea {
   background-color: transparent;
   color: inherit;
+}
+
+input{
+  margin: 0;
 }
 
 button {
@@ -77,6 +90,17 @@ button:hover {
 button:active {
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.33);
   opacity: 1;
+}
+
+dialog {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  animation: fade-in 1s;
 }
 
 *[disabled], *:disabled {
@@ -121,4 +145,25 @@ button:active {
 
 [hidden], .hidden {
   display: none;
+}
+
+.flow-start{
+  justify-self: flex-start;
+}
+.flow-center{
+  justify-self: center;
+}
+.flow-start{
+  justify-self: flex-end;
+}
+
+
+
+@keyframes fade-in {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
 }
