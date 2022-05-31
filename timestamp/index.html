@@ -19,8 +19,11 @@
       --row-height: 32px;
     }
     .tools > button{
-      /* width: var(--row-height); */
-      height: var(--row-height);
+      min-width: var(--row-height);
+      max-height: var(--row-height);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .photo-row{
       margin: 4px;
@@ -48,7 +51,6 @@
   <main class="vertical" style="padding: 24px; height: 100%;gap: 24px; overflow: hidden;">
     <div class="horizontal tools">
       <button id="settings_btn">⋮ настроить штамп</button>
-      <div class="flex"></div>
       <button id="add_btn">+ добавить фото</button>
       <div class="flex"></div>
       <button id="downLoad_btn"><u>↓ скачать всё</u></button>
