@@ -135,7 +135,7 @@ async function showSettings() {
   }
   dialog.appendChild(form)
   document.body.appendChild(dialog)
-  dialog.show()
+  dialog.showModal()
 }
 function applySettings(settings) {
   if (settings) {
