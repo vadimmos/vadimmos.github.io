@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#353535">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
+  <meta name="Description" content="vadimmos portal">
+  <title>vadimmos timestamp</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/components/header/header.js" type="module"></script>
+  <style>
+    .tools > button{
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+  <header is="vb-header"></header>
+  <main class="vertical" style="padding: 24px; height: 100%;gap: 8px; overflow: hidden;">
+    <div class="horizontal tools">
+      <button id="add_btn">+</button>
+      <button id="settings_btn">⋮</button>
+      <div class="flex"></div>
+      <button id="apply_btn">✔</button>
+      <button id="cancel_btn">❌</button>
+    </div>
+    <div class="flex" style="overflow: hidden;">
+      <ul id="photo_ul" hidden>
+        <template id="li_template">
+          <li>
+            <img>
+            <div></div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </main>
+  <script src="index.js"></script>
+</body>
+</html>
