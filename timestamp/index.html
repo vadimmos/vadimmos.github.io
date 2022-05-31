@@ -9,35 +9,80 @@
   <meta name="Description" content="vadimmos portal">
   <title>vadimmos timestamp</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/dialog.css">
   <script src="/components/header/header.js" type="module"></script>
   <style>
+    body{
+      overflow: hidden;
+    }
+    :root{
+      --row-height: 32px;
+    }
     .tools > button{
-      width: 32px;
-      height: 32px;
+      /* width: var(--row-height); */
+      height: var(--row-height);
+    }
+    .photo-row{
+      margin: 4px;
+    }
+    .photo-row > a{
+      margin: 0 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: var(--row-height);
+      white-space: nowrap;
+    }
+    .photo-row > img{
+      width: var(--row-height);
+      height: var(--row-height);
+      object-fit: cover;
+    }
+    form label{
+      user-select: none;
+      margin: 8px 4px;
     }
   </style>
 </head>
 <body>
   <header is="vb-header"></header>
-  <main class="vertical" style="padding: 24px; height: 100%;gap: 8px; overflow: hidden;">
+  <main class="vertical" style="padding: 24px; height: 100%;gap: 24px; overflow: hidden;">
     <div class="horizontal tools">
-      <button id="add_btn">+</button>
-      <button id="settings_btn">⋮</button>
+      <button id="settings_btn">⋮ настроить штамп</button>
       <div class="flex"></div>
-      <button id="apply_btn">✔</button>
-      <button id="cancel_btn">❌</button>
+      <button id="add_btn">+ добавить фото</button>
+      <div class="flex"></div>
+      <button id="downLoad_btn"><u>↓ скачать всё</u></button>
+      <button id="clear_btn">❌ очистить</button>
     </div>
-    <div class="flex" style="overflow: hidden;">
-      <ul id="photo_ul" hidden>
+    <div class="flex" style="overflow-y: auto; overflow-x: hidden; padding: 8px;">
+      <ul id="photo_ul">
         <template id="li_template">
-          <li>
+          <li class="raised photo-row horizontal">
             <img>
-            <div></div>
+            <a class="flex"></a>
+            <button>🗑</button>
           </li>
         </template>
       </ul>
     </div>
   </main>
-  <script src="index.js"></script>
+  <template id="settings_dialog_template">
+      <dialog>
+      <form>
+        <label><span>Шрифт: </span><select name="font_family"></select></label>
+        <label><span>Размер: </span><input name="font_size" type="number"></label>
+        <label><span>Отступ слева: </span><input name="left" type="number"></label>
+        <label><span>Отступ сверху: </span><input name="top" type="number"></label>
+        <label><span>Цвет заливки: </span><input name="fill_color" type="color"></label>
+        <label><span>Цвет обводки: </span><input name="stroke_color" type="color"></label>
+        <label><span>Толщина обводки: </span><input name="stroke_width" type="number"></label>
+        <div class="horizontal tools" style="justify-content: center;">
+          <button name="confirm">✓ сохранить</button>
+          <button name="cancel">❌ отмена</button>
+        </div>
+      </form>
+    </dialog>
+  </template>
+  <script src="index.js" type="module"></script>
 </body>
 </html>

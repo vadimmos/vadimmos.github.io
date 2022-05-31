@@ -1,0 +1,60 @@
+dialog header{
+  padding: 4px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.24);
+}
+dialog form section{
+  margin: 16px;
+}
+dialog form menu{
+  gap: 8px;
+}
+dialog form p{
+  padding: 16px;
+}
+dialog form fieldset{
+  min-width: auto;
+}
+dialog form label{
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+dialog form label div{
+  flex: 1 1 auto;
+  white-space: nowrap;
+}
+dialog form label input, dialog form label select{
+  flex: 10 10 auto;
+  height: 24px;
+  padding: 2px 4px;
+  box-sizing: border-box;
+  border: 1px solid var(--main-color);
+  min-width: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+dialog form label select{
+  flex: 14 10 auto; /* хз */
+  padding: 2px 0px;
+}
+dialog form label input[type="radio"]{
+  flex: none;
+  margin: 0 4px;
+}
+dialog footer{
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  filter: brightness(0.9);
+  background-color: var(--main-bg-color);
+}
+dialog footer button.close{
+  background-color: var(--error-color);
+  align-self: flex-end;
+}
+dialog footer button.confirm{
+  background-color: var(--success-color);
+  align-self: flex-end;
+}

@@ -68,6 +68,15 @@ textarea {
 input{
   margin: 0;
 }
+input[type=color]{
+  padding: 0;
+}
+input::-webkit-color-swatch-wrapper{
+  padding: 0;
+}
+input[type=number]{
+  text-align: right;
+}
 
 button {
   background-color: var(--main-bg-color);
@@ -104,7 +113,8 @@ dialog::backdrop {
 }
 
 *[disabled], *:disabled {
-  opacity: 0.5;
+  opacity: 0.5 !important;
+  filter: brightness(0.8) contrast(0.5) !important;
 }
 
 .m-0 {
