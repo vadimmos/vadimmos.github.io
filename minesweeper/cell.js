@@ -35,6 +35,13 @@ export default class Cell {
   get neighbor() {
     return this._neighbor;
   }
+  interact() {
+    if (this.isOpen) {
+      return this.scan();
+    } else if(!this.flag) {
+      return this.open();
+    }
+  }
   open() {
     if (!this.flag && !this.isOpen) {
       this.isOpen = true;
@@ -42,10 +49,7 @@ export default class Cell {
         globalThis.dispatchEvent(new CustomEvent('gameOver'));
       } else if (this.num !== MINE) {
         this.neighbor.forEach(i => {
-          if (
-            (this.num === EMPTY || (i.x === this.x || i.y !== this.y)) &&
-            i.num !== MINE && !i.isOpen
-          ) {
+          if ((this.num === EMPTY || ((i.x === this.x || i.y === this.y)) && i.num !== MINE && !i.isOpen)) {
             if (i.num === EMPTY) {
               i.open();
             } else {

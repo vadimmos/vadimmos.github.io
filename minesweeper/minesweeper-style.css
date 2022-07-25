@@ -20,15 +20,13 @@
   box-sizing: border-box;
   border-style: solid;
   border-width: 4px;
-  border-top-color: whitesmoke;
-  border-left-color: whitesmoke;
-  border-bottom-color: darkgreen;
-  border-right-color: brown;
+  border: 1px solid gray;
   cursor: pointer;
-  background-color: gray;
+  background-color: white;
   user-select: none;
   font-size: 2em;
   text-align: center;
+  line-height: 1.5em;
 }
 .cell:hover{
   filter: brightness(1.2);
@@ -40,8 +38,7 @@
   background-position: center;
 }
 .cell[open]{
-  border: none;
-  background-color: white;
+  filter: invert(1);
 }
 .cell[open][num="1"]{
   color: blue;

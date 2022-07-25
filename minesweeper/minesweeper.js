@@ -8,8 +8,10 @@ const height = Math.round((globalThis.innerHeight - header.offsetHeight - 16) / 
 
 let startTime = Date.now();
 let redTimer = false;
+let startTaskID = 0;
+let windAnimInterval = 0;
 
-let first = false;
+let mineCount = 0;
 
 /** @type {Cell[][]} */const cells = [];
 
@@ -18,36 +20,17 @@ timer.addEventListener('click', () => {
   startGame();
 });
 
-let pDowns = 0;
-let pDownTimerId = 0;
-filedEl.addEventListener('pointerdown', (e) => {
-  if(e.button !== 0) return;
-  pDowns++;
-  if (pDownTimerId) {
-    clearTimeout(pDownTimerId);
-  }
-  pDownTimerId = setTimeout(() => {
-    if (pDowns >= 2) {
-      if (e.target['cell']) {
-        if (!first) {
-          e.target['cell'].num = 0;
-          e.target['cell'].neighbor = [...e.target['cell'].neighbor];
-          first = true;
-        }
-        e.target['cell'].open();
-        if (cells.every(i => i.every(i => (i.num > -1 && i.isOpen) || (i.num === -1 && !i.isOpen)))) {
-          win();
-        }
-      }
-    }
-    pDowns = 0;
-  }, 200);
-});
-
 filedEl.addEventListener('click', (e) => {
-  if (e.target['cell']) {
-    e.target['cell'].scan();
+  if (!timerId) {
+    timerId = setInterval(() => {
+      setTimer();
+      displayTimer();
+    }, 1000);
   }
+  if (e.target['cell']) {
+    e.target['cell'].interact();
+  }
+  checkWin();
 });
 filedEl.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -55,43 +38,70 @@ filedEl.addEventListener('contextmenu', (e) => {
   if (e.target['cell']) {
     e.target['cell'].stFlag();
   }
-});
+  checkWin();
+}, true);
 function gameOver() {
   redTimer = true;
-  for (let i = 0; i <= height; i++) {
-    for (let j = 0; j <= width; j++) {
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
       if (cells[i][j].num === -1) {
         cells[i][j].elem.setAttribute('open', '');
         cells[i][j].elem.setAttribute('num', String(cells[i][j].num));
       }
     }
   }
-  setTimeout(() => {
+  startTaskID = setTimeout(() => {
     startGame();
   }, 5000);
 }
-
+let min = 0;
+let sec = 0;
+let timerId = 0;
+function setTimer() {
+  const curTime = new Date(Date.now() - startTime);
+  min = curTime.getMinutes();
+  sec = curTime.getSeconds();
+}
+function displayTimer() {
+  const minS = min < 10 ? `0${min}` : `${min}`;
+  const secS = sec < 10 ? `0${sec}` : `${sec}`;
+  timer.innerText = `${minS}:${secS}`;
+  timer.style.color = redTimer ? 'red' : '';
+}
 function startGame() {
+  min = 0;
+  sec = 0;
+  redTimer = false;
+  clearTimeout(startTaskID);
+  startTaskID = 0;
+  clearTimeout(timerId);
+  timerId = 0;
+  clearInterval(windAnimInterval);
+  windAnimInterval = 0;
+  displayTimer();
+  const h1 = document.querySelector('.you-win');
+  h1?.remove?.();
   [...filedEl.children].forEach(e => e.remove());
-  first = false;
   cells.splice(0, cells.length);
   cells.length = height;
+  mineCount = 0;
 
-  for (let i = 0; i <= height; i++) {
+  for (let i = 0; i < height; i++) {
     cells[i] = [];
     cells[i].length = width;
-    for (let j = 0; j <= width; j++) {
+    for (let j = 0; j < width; j++) {
       cells[i][j] = new Cell(i, j);
+      if (cells[i][j].num === -1) mineCount++;
     }
   }
 
   const rows = [];
 
-  for (let i = 0; i <= height; i++) {
+  for (let i = 0; i < height; i++) {
     const row = document.createElement('div');
     row.classList.add('row');
     rows.push(row);
-    for (let j = 0; j <= width; j++) {
+    for (let j = 0; j < width; j++) {
       cells[i][j].neighbor = Cell.getNeighbor(cells, cells[i][j]);
       row.appendChild(cells[i][j].elem);
     }
@@ -107,9 +117,23 @@ function startGame() {
   startTime = Date.now();
   redTimer = false
 }
+function checkWin() {
+  let opened = 0;
+  let flags = 0;
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      if (cells[i][j].num === -1) {
+        if (cells[i][j].flag) flags++;
+      } else {
+        if (cells[i][j].isOpen) opened++;
+      }
+    }
+  }
+  if(( opened === height * width - mineCount ) || flags === mineCount) win();
+}
 function win() {
   clearInterval(timerId);
-  const h1 = document.createElement('h1');
+  const h1 = document.querySelector('.you-win') || document.createElement('h1');
   h1.innerText = 'You win!';
   h1.style.position = 'fixed';
   h1.style.fontSize = '10vh';
@@ -119,8 +143,8 @@ function win() {
   document.body.appendChild(h1);
 
   const elems = [];
-  for (let i = 0; i <= height; i++) {
-    for (let j = 0; j <= width; j++) {
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
       elems.push(cells[i][j].elem);
     }
   }
@@ -132,7 +156,7 @@ function win() {
     let height = Math.round(globalThis.innerHeight);
     let left = (Math.random() - 0.5)  * Math.round(globalThis.innerWidth / 2);
     let top = (Math.random() - 0.5) * Math.round(globalThis.innerHeight / 2);
-    const entId = setInterval(() => {
+    windAnimInterval = setInterval(() => {
       elems.forEach(e => {
         left += Math.round(Math.max((Math.random() - 0.5) * 50, -50));
         left = Math.min(Math.max(left, 0), width);
@@ -142,28 +166,10 @@ function win() {
         e.style.top = `${top}px`;
       });
     }, 1000 / 60);
-    setTimeout(() => {
-      clearInterval(entId);
+    startTaskID = setTimeout(() => {
+      clearInterval(windAnimInterval);
       document.location.reload();
     }, 5000);
   }
 }
-let min = 0;
-let sec = 0;
-function setTimer() {
-  const curTime = new Date(Date.now() - startTime);
-  min = curTime.getMinutes();
-  sec = curTime.getSeconds();
-
-}
-function displayTimer() {
-  const minS = min < 10 ? `0${min}` : `${min}`;
-  const secS = sec < 10 ? `0${sec}` : `${sec}`;
-  timer.innerText = `${minS}:${secS}`;
-  timer.style.color = redTimer ? 'red' : '';
-}
 startGame();
-const timerId = setInterval(() => {
-  setTimer();
-  displayTimer();
-}, 1000);
