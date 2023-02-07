@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#353535">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
+  <meta name="Description" content="vadimmos portal">
+  <title>Количество пикселей по цветам</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/components/header/header.js" type="module"></script>
+  <script src="./index.js" type="module"></script>
+</head>
+<body>
+      <style>
+        body{
+          height: 100%;
+          overflow: hidden;
+        }
+        main{
+          flex: auto;
+        }
+        .block{
+          padding: 16px;
+          width: 45%;
+          overflow: auto;
+        }
+        .color-box{
+          display: inline-block;
+          width: 1rem;
+          height: 1rem;
+        }
+        #list, list *{
+          white-space: nowrap;
+        }
+      </style>
+  <header is="vb-header"></header>
+  <main class="horizontal" style="display: flex;justify-content: center;overflow: hidden;">
+    <div class="vertical block">
+      <button id="getImageBtn" style="margin-bottom: 16px;">Загрузить картинку</button>
+      <canvas id="canvas" style="width: 100%;"></canvas>
+    </div>
+    <div class="vertical block" style="flex: auto;">
+      <table id="list"></table>
+      <template id="listItemTemplate">
+        <tr>
+          <td class="color-box"></td class="color-text"><td></td>&nbsp;-&nbsp;<td class="color-count"></td>
+        </tr>
+      </template>
+    </div>
+  </main>
+</body>
+</html>
