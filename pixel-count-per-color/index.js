@@ -31,6 +31,12 @@ getImageBtn.addEventListener('click', async () => {
     // const aspect = w / h;
     // canvas.style.setProperty('height', String(canvas.offsetWidth/aspect))
     if (ctx) {
+      if (w > 300) {
+        ctx.imageSmoothingEnabled = true;
+      }
+      else {
+        ctx.imageSmoothingEnabled = false;
+      }
       ctx.drawImage(image, 0, 0);
       /**
        * @type {{[key: string]:number}}
