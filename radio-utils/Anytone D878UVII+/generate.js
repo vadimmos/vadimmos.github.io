@@ -9,7 +9,7 @@ if (get_btn instanceof HTMLButtonElement) {
     }
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([result], {type: 'text/csv'}));
-    a.download = 'data.csv';
+    a.download = 'AES-7222808e.csv';
     a.click();
   });
 }
