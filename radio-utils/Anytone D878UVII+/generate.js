@@ -5,7 +5,7 @@ if (get_btn instanceof HTMLButtonElement) {
     let result = '';
     result += '"id","num","aeskey"';
     for (let i = 1; i < 256; i++){
-      result += `\n\r"${i}","64","${gen64x16()}"`;
+      result += `\r\n"${i}","64","${gen64x16()}"`;
     }
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([result], {type: 'text/csv'}));
