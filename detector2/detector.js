@@ -3,8 +3,7 @@ const DIR_MAP = ['n', 'ne', 'e', 'es', 's', 'sw', 'w', 'wn'];
 let bg = DIR_MAP[0];
 let alpha = 0;
 let coords = { latitude: 0, longitude: 0 };
-
-const TARGET = { latitude: 54.644905, longitude: 39.656434 };
+const TARGET = { latitude: 54.644765660598466, longitude: 39.65878730295785 };
 
 if (indicator && typeof Gyroscope === "function") {
   window.addEventListener("deviceorientation", (event) => {
