@@ -16,6 +16,7 @@
     overflow: hidden;
     color: rgb(202, 183, 98);
     font-family: sans-serif;
+    font-size: 24px;
   }
 
   * {
@@ -27,6 +28,7 @@
   /* width */
   ::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
   }
 
   /* Track */
@@ -48,6 +50,7 @@
 
   button {
     user-select: none;
+    font-size: inherit;
   }
 
   .inventory-container {
@@ -56,7 +59,7 @@
     background-repeat: repeat;
     display: flex;
     flex-direction: column;
-    --row-height: 32px;
+    --row-height: 3em;
   }
 
   ul {
@@ -84,6 +87,14 @@
     flex-direction: row;
     padding: 0;
     margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: inherit;
+    min-height: 2em;
+    scroll-behavior: smooth;
+  }
+  .filer-buttons-panel::-webkit-scrollbar{
+    height: 1;
   }
 
   .filer-buttons-panel button {
@@ -128,9 +139,8 @@
     margin: 8px;
     box-shadow: inset 2px 2px 2px rgba(0 0 0 / 25%), inset 0px 0px 8px rgba(0 0 0 / 50%);
     --icon-size: var(--row-height);
-    --spacing: 8px;
+    --spacing: 0px;
     line-height: 2.3em;
-    font-size: 12px;
     white-space: nowrap;
     overflow: auto;
     backdrop-filter: blur(2px);
@@ -141,6 +151,7 @@
     width: 100%;
     border-spacing: var(--spacing);
     user-select: none;
+    font-size: 0.7rem;
   }
 
   .inventory-body>table tr.selected {
@@ -158,6 +169,7 @@
   .inventory-body>table th,
   .inventory-body>table td {
     height: var(--row-height);
+    padding: 8px
   }
 
   .inventory-body>table>tr.selected td {
@@ -224,6 +236,10 @@
     filterTab.addEventListener('click', onClickTab);
 
     filterTab.querySelectorAll('button')[0].click();
+
+    filterTab.addEventListener('mousewheel', event =>{
+      filterTab.scrollLeft += event.deltaX || event.deltaY;
+    }, {passive: true})
 
     inventory.addEventListener('keydown', event => {
       switch (event.code) {
@@ -312,8 +328,12 @@
             fr.appendChild(tr);
 
             let td = document.createElement('td');
-            td.classList.add('icon');
-            td.style.setProperty('background-image', `url(${i.icon})`);
+            const div = document.createElement('div');
+            div.classList.add('icon');
+            div.style.setProperty('width', '100%');
+            div.style.setProperty('height', '100%');
+            div.style.setProperty('background-image', `url(${i.icon})`);
+            td.appendChild(div);
             tr.appendChild(td);
 
             td = document.createElement('td');
