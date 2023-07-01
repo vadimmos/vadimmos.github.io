@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    color: rgb(202, 183, 98);
+    font-family: sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    color: inherit;
+    text-overflow: ellipsis;
+    white-space: inherit;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+    opacity: 0.5;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
+  }
+
+  button {
+    user-select: none;
+  }
+
+  .inventory-container {
+    /* border: 1px solid gray; */
+    background-image: url("./bg.png");
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: column;
+    --row-height: 32px;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  li {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  li>* {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  .filer-buttons-panel {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filer-buttons-panel button {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #5d5d5d;
+    margin: 2px 1px 0px 1px;
+    border: none;
+    padding: 8px;
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  .filer-buttons-panel button:hover {
+    opacity: 0.75;
+  }
+
+  .filer-buttons-panel button:active,
+  .filer-buttons-panel button:focus,
+  .filer-buttons-panel button.selected {
+    opacity: 0.9;
+  }
+
+  .filer-buttons-panel button.selected {
+    box-shadow: inset 0px -1px cyan;
+    color: cyan;
+  }
+
+  .gridify {
+    --cell-size: 32px;
+    --start: 31px;
+    --line-color: rgb(255 255 0 / 20%);
+    background-image:
+      linear-gradient(transparent var(--start), var(--line-color) var(--cell-size), transparent var(--cell-size)),
+      linear-gradient(90deg, transparent var(--start), var(--line-color) var(--cell-size), transparent var(--cell-size));
+    background-size: 100% var(--cell-size), var(--cell-size) 100%;
+  }
+
+  .inventory-body {
+    position: relative;
+    flex: auto;
+    margin: 8px;
+    box-shadow: inset 2px 2px 2px rgba(0 0 0 / 25%), inset 0px 0px 8px rgba(0 0 0 / 50%);
+    --icon-size: var(--row-height);
+    --spacing: 8px;
+    line-height: 2.3em;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: auto;
+    backdrop-filter: blur(2px);
+    overflow-x: hidden;
+  }
+
+  .inventory-body>table {
+    width: 100%;
+    border-spacing: var(--spacing);
+    user-select: none;
+  }
+
+  .inventory-body>table tr.selected {
+    color: cyan;
+    outline: 1px dashed cyan;
+  }
+
+  .inventory-body>table th {
+    position: sticky;
+    top: var(--spacing);
+    backdrop-filter: blur(2px);
+    background: rgba(0 0 0 / 75%);
+  }
+
+  .inventory-body>table th,
+  .inventory-body>table td {
+    height: var(--row-height);
+  }
+
+  .inventory-body>table>tr.selected td {
+    color: cyan;
+  }
+
+  .icon {
+    width: calc(2*var(--row-height));
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .name {
+    max-width: 50%;
+    overflow: hidden;
+  }
+
+  .icon,
+  .count,
+  .weight {
+    text-align: center;
+  }
+
+  .count {
+    width: calc(2*var(--row-height));
+  }
+
+  .weight {
+    width: calc(2*var(--row-height));
+  }
+</style>
+
+<body>
+  <div style="height: 300px; width: 500px; position: absolute; margin: 100px;" class="inventory-container">
+    <ul id="filterTab" class="filer-buttons-panel">
+      <li><button data-filter="all">Всё</button></li>
+      <li><button data-filter="food">Еда</button></li>
+      <li><button data-filter="medic">Медикаменты</button></li>
+      <li><button data-filter="ammo">Патроны</button></li>
+      <li><button data-filter="weapon">Оружие</button></li>
+      <li><button data-filter="other">Другое</button></li>
+    </ul>
+    <div id="inventoryBody" class="inventory-body">
+      <table>
+        <thead>
+          <tr>
+            <th class="icon">Иконка</th>
+            <th class="name">Наименование</th>
+            <th class="weight">Вес</th>
+            <th class="count">Кол-во</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody" tabindex="0">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="module">
+    import items from './items.js';
+
+    filterTab.addEventListener('click', onClickTab);
+
+    filterTab.querySelectorAll('button')[0].click();
+
+    // inventoryBody.addEventListener('keydown', event => {
+    //   if(event.code.startsWidth('Arrow'))
+    //     event.preventDefault();
+    // });
+
+    tableBody.addEventListener('keydown', event => {
+      const selected = tableBody.querySelector('.selected');
+      switch (event.code) {
+        case 'ArrowDown': {
+          event.preventDefault();
+          if(selected){
+            deselect(selected);
+            if(selected.nextElementSibling){
+              select(selected.nextElementSibling);
+              return;
+            }
+          }
+          select(tableBody.firstElementChild);
+        }break;
+        case 'ArrowUp': {
+          event.preventDefault();
+          if(selected){
+            deselect(selected);
+            if(selected.previousElementSibling){
+              select(selected.previousElementSibling);
+              return;
+            }
+          }
+          select(tableBody.lastElementChild);
+        }break;
+      }
+    });
+    filterTab.addEventListener('keydown', event => {
+      const selected = tableBody.querySelector('.selected');
+      switch (event.code) {
+        case 'ArrowDown': {
+          event.preventDefault();
+          if(selected){
+            deselect(selected);
+            if(selected.nextElementSibling){
+              select(selected.nextElementSibling);
+              return;
+            }
+          }
+          select(tableBody.firstElementChild);
+        }break;
+        case 'ArrowUp': {
+          event.preventDefault();
+          if(selected){
+            deselect(selected);
+            if(selected.previousElementSibling){
+              select(selected.previousElementSibling);
+              return;
+            }
+          }
+          select(tableBody.lastElementChild);
+        }break;
+      }
+    });
+
+    function onClickTab(event) {
+      const btn = event.target;
+      if (btn.localName === 'button') {
+        for (const b of event.currentTarget.querySelectorAll('button')) {
+          deselect(b);
+        }
+        select(btn);
+        const filter = btn.dataset.filter;
+        const fr = new DocumentFragment();
+        for (const i of items) {
+          if (filter === 'all' || i.type === filter) {
+            const tr = document.createElement('tr');
+            tr.addEventListener('click', event => {
+              for (const e of tr.parentElement.querySelectorAll('.selected')) {
+                deselect(e);
+              }
+              let elem;
+              if (event.target.localName === 'tr') {
+                elem = event.target;
+              }
+              else if (event.target.localName === 'td') {
+                elem = event.target.parentElement;
+              }
+              select(elem);
+            });
+            fr.appendChild(tr);
+
+            let td = document.createElement('td');
+            td.classList.add('icon');
+            td.style.setProperty('background-image', `url(${i.icon})`);
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.classList.add('name');
+            td.textContent = i.name;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.classList.add('weight');
+            td.textContent = i.weight;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.classList.add('count');
+            if (i.can_stack) {
+              td.textContent = i.weight;
+            }
+            else {
+              td.textContent = '-';
+            }
+            tr.appendChild(td);
+          }
+        }
+        tableBody.innerHTML = '';
+        tableBody.appendChild(fr);
+      }
+    }
+    function select(element){
+      element.classList.add('selected');
+      element.focus();
+      element.scrollIntoView({block: 'center', behavior: 'smooth'});
+    }
+    function deselect(element){
+      element.classList.remove('selected');
+      element.blur();
+    }
+  </script>
+</body>
+
+</html>
