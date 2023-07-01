@@ -219,6 +219,8 @@
   <script type="module">
     import items from './items.js';
 
+    let selectedId = -1;
+
     filterTab.addEventListener('click', onClickTab);
 
     filterTab.querySelectorAll('button')[0].click();
@@ -290,6 +292,10 @@
         for (const i of items) {
           if (filter === 'all' || i.type === filter) {
             const tr = document.createElement('tr');
+            tr.dataset.id = i.id;
+            if(tr.dataset.id === selectedId){
+              tr.classList.add('selected');
+            }
             tr.addEventListener('click', event => {
               for (const e of tr.parentElement.querySelectorAll('.selected')) {
                 deselect(e);
@@ -340,6 +346,9 @@
       element.click();
       element.focus();
       element.scrollIntoView({block: 'center', behavior: 'smooth'});
+      if('id' in element.dataset){
+        selectedId = element.dataset.id;
+      }
     }
     function deselect(element){
       element.classList.remove('selected');

@@ -465,4 +465,9 @@ export default [
     count: 1,
     type: 'other'
   },
-].sort((a, b) => naturalCompare(a.name, b.name));
+]
+  .sort((a, b) => naturalCompare(a.name, b.name))
+  .map((i, idx) => {
+    i.id = idx + 1;
+    return i;
+  });
