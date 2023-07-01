@@ -18,6 +18,118 @@ export default [
     type: 'weapon'
   },
   {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
+    icon: './icons/ico_02.png',
+    name: 'Пистик-хуистик',
+    weight: 1.5,
+    can_stack: false,
+    count: 1,
+    type: 'weapon'
+  },
+  {
     icon: './icons/ico_03.png',
     name: 'Ножик-хуёжик',
     weight: 0.5,
@@ -96,6 +208,254 @@ export default [
     can_stack: true,
     count: 8,
     type: 'trash'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
+  },
+  {
+    icon: './icons/ico_13.png',
+    name: 'Рация-хуяция',
+    weight: 1,
+    can_stack: false,
+    count: 1,
+    type: 'other'
   },
   {
     icon: './icons/ico_13.png',
