@@ -60,6 +60,7 @@
     display: flex;
     flex-direction: column;
     --row-height: 3em;
+    --selected-color: lime;
   }
 
   ul {
@@ -119,8 +120,8 @@
   }
 
   .filer-buttons-panel button.selected {
-    box-shadow: inset 0px -1px cyan;
-    color: cyan;
+    box-shadow: inset 0px -1px var(--selected-color);
+    color: var(--selected-color);
   }
 
   .gridify {
@@ -155,8 +156,8 @@
   }
 
   .inventory-body>table tr.selected {
-    color: cyan;
-    box-shadow: inset 0px 0px 0px 1px rgba(0, 255, 255, 0.5);
+    color: var(--selected-color);
+    box-shadow: inset 0px 0px 0px 1px color-mix(in srgb, color var(--selected-color), color rgba(0 0 0 / 50%));
   }
 
   .inventory-body>table th {
@@ -172,10 +173,6 @@
     padding: 8px
   }
 
-  .inventory-body>table>tr.selected td {
-    color: cyan;
-  }
-
   .icon {
     width: calc(2*var(--row-height));
     background-size: contain;
@@ -184,7 +181,7 @@
   }
 
   tr.selected .icon{
-    filter: drop-shadow(0px 0px 4px cyan);
+    filter: drop-shadow(0px 0px 4px var(--selected-color));
   }
 
   .name {
