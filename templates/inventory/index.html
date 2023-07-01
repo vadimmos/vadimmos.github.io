@@ -344,20 +344,30 @@
             if (item.count === 0) {
               items.splice(items.findIndex(i => i.id === item.id), 1);
             }
-            const notify = pushNotify(`Выброшен предмет: "${item.name}"`, { tag: `item-droped:${item.id}`, icon: item.icon });
-            setTimeout(() => {
-              notify.close();
-            }, 5000);
+            try{
+              const notify = pushNotify(`Выброшен предмет: "${item.name}"`, { tag: `item-droped:${item.id}`, icon: item.icon });
+              setTimeout(() => {
+                notify?.close?.();
+              }, 5000);
+            }
+            catch(err){
+              console.error(err);
+            }
           }
         },
         {
           label: 'Выбросить все', condition(item){return item.count > 1},
           action(item) {
             items.splice(items.findIndex(i => i === item), 1);
-            const notify = pushNotify(`Выброшен предметы: "${item.name}" X ${item.count}`, { tag: `item-droped:${item.id}`, icon: item.icon });
-            setTimeout(() => {
-              notify.close();
-            }, 5000);
+            try{
+              const notify = pushNotify(`Выброшен предметы: "${item.name}" X ${item.count}`, { tag: `item-droped:${item.id}`, icon: item.icon });
+              setTimeout(() => {
+                notify?.close?.();
+              }, 5000);
+            }
+            catch(err){
+              console.error(err);
+            }
           }
         },
         {
@@ -367,10 +377,15 @@
             if (item.count === 0) {
               items.splice(items.findIndex(i => i.id === item.id), 1);
             }
-            const notify = pushNotify(`Использован предмет: "${item.name}"`, { tag: `item-used:${item.id}`, icon: item.icon });
-            setTimeout(() => {
-              notify.close();
-            }, 5000);
+            try{
+              const notify = pushNotify(`Использован предмет: "${item.name}"`, { tag: `item-used:${item.id}`, icon: item.icon });
+              setTimeout(() => {
+                notify?.close?.();
+              }, 5000);
+            }
+            catch(err){
+              console.error(err);
+            }
           }
         }
       ].forEach(option => {
