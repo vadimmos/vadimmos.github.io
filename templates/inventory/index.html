@@ -25,6 +25,7 @@
     text-overflow: ellipsis;
     white-space: inherit;
   }
+
   /* width */
   ::-webkit-scrollbar {
     width: 4px;
@@ -49,8 +50,23 @@
   }
 
   button {
+    flex: auto;
     user-select: none;
     font-size: inherit;
+    cursor: pointer;
+    border: none;
+    padding: 8px;
+    opacity: 0.6;
+    background: none;
+  }
+
+  button:hover {
+    opacity: 0.75;
+  }
+
+  button:active,
+  button:focus {
+    opacity: 0.9;
   }
 
   .inventory-container {
@@ -94,7 +110,8 @@
     min-height: 2em;
     scroll-behavior: smooth;
   }
-  .filer-buttons-panel::-webkit-scrollbar{
+
+  .filer-buttons-panel::-webkit-scrollbar {
     height: 1;
   }
 
@@ -103,18 +120,8 @@
     border-top-left-radius: 8px;
     background-color: #5d5d5d;
     margin: 2px 1px 0px 1px;
-    border: none;
-    padding: 8px;
-    opacity: 0.6;
-    cursor: pointer;
   }
 
-  .filer-buttons-panel button:hover {
-    opacity: 0.75;
-  }
-
-  .filer-buttons-panel button:active,
-  .filer-buttons-panel button:focus,
   .filer-buttons-panel button.selected {
     opacity: 0.9;
   }
@@ -180,7 +187,7 @@
     background-repeat: no-repeat;
   }
 
-  tr.selected .icon{
+  tr.selected .icon {
     filter: drop-shadow(0px 0px 4px var(--selected-color));
   }
 
@@ -201,6 +208,30 @@
 
   .weight {
     width: calc(2*var(--row-height));
+  }
+
+  #menu:popover-open {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    background-color: gray;
+    border: none;
+    box-shadow: 2px 2px 4px rgba(0 0 0 / 25%), 0px 0px 4px rgba(0 0 0 / 25%), 0px 0px 16px rgba(0 0 0 / 50%);
+    border-radius: 2px;
+  }
+
+  #menu>ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #menu>ul>li {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #menu>ul>li>button {
+    flex: auto;
   }
 </style>
 
@@ -229,72 +260,142 @@
       </table>
     </div>
   </div>
+  <div id="menu" popover></div>
   <script type="module">
     import items from './items.js';
 
     let selectedId = -1;
+    let filter = 'all';
 
     filterTab.addEventListener('click', onClickTab);
 
     filterTab.querySelectorAll('button')[0].click();
 
-    filterTab.addEventListener('mousewheel', event =>{
+    filterTab.addEventListener('mousewheel', event => {
       filterTab.scrollLeft += event.deltaX || event.deltaY;
-    }, {passive: true})
+    }, { passive: true });
 
     inventory.addEventListener('keydown', event => {
       switch (event.code) {
         case 'ArrowDown': {
           const selected = tableBody.querySelector('.selected');
           event.preventDefault();
-          if(selected){
+          if (selected) {
             deselect(selected);
-            if(selected.nextElementSibling){
+            if (selected.nextElementSibling) {
               select(selected.nextElementSibling);
               return;
             }
           }
           select(tableBody.firstElementChild);
-        }break;
+        } break;
         case 'ArrowUp': {
           const selected = tableBody.querySelector('.selected');
           event.preventDefault();
-          if(selected){
+          if (selected) {
             deselect(selected);
-            if(selected.previousElementSibling){
+            if (selected.previousElementSibling) {
               select(selected.previousElementSibling);
               return;
             }
           }
           select(tableBody.lastElementChild);
-        }break;
+        } break;
         case 'ArrowRight': {
           const selected = filterTab.querySelector('.selected');
           event.preventDefault();
-          if(selected){
+          if (selected) {
             deselect(selected);
             const next = selected.parentElement?.nextElementSibling?.querySelector?.('button');
-            if(next){
+            if (next) {
               select(next);
               return;
             }
           }
           select(filterTab.firstElementChild.querySelector?.('button'));
-        }break;
+        } break;
         case 'ArrowLeft': {
           const selected = filterTab.querySelector('.selected');
           event.preventDefault();
-          if(selected){
+          if (selected) {
             deselect(selected);
             const next = selected.parentElement?.previousElementSibling?.querySelector?.('button');
-            if(next){
+            if (next) {
               select(next);
               return;
             }
           }
           select(filterTab.lastElementChild.querySelector?.('button'));
-        }break;
+        } break;
       }
+    });
+    tableBody.addEventListener('contextmenu', event => {
+      event.preventDefault();
+      let row = event.target;
+      while (row.localName !== 'tr') {
+        row = row.parentElement;
+      }
+      const ul = document.createElement('ul');
+      [
+        {
+          label: 'Выбросить',
+          action(item) {
+            item.count -= 1;
+            if (item.count === 0) {
+              items.splice(items.findIndex(i => i.id === item.id), 1);
+            }
+            const notify = pushNotify(`Выброшен предмет: "${item.name}"`, { tag: `item-droped:${item.id}`, icon: item.icon });
+            setTimeout(() => {
+              notify.close();
+            }, 5000);
+          }
+        },
+        {
+          label: 'Выбросить все', condition(item){return item.count > 1},
+          action(item) {
+            items.splice(items.findIndex(i => i === item), 1);
+            const notify = pushNotify(`Выброшен предметы: "${item.name}" X ${item.count}`, { tag: `item-droped:${item.id}`, icon: item.icon });
+            setTimeout(() => {
+              notify.close();
+            }, 5000);
+          }
+        },
+        {
+          label: 'Использовать', condition(item){return ['medic', 'food'].includes(item.type)},
+          action(item) {
+            item.count -= 1;
+            if (item.count === 0) {
+              items.splice(items.findIndex(i => i.id === item.id), 1);
+            }
+            const notify = pushNotify(`Использован предмет: "${item.name}"`, { tag: `item-used:${item.id}`, icon: item.icon });
+            setTimeout(() => {
+              notify.close();
+            }, 5000);
+          }
+        }
+      ].forEach(option => {
+        const item = items.find(i => i.id === parseInt(row.dataset.id));
+        if (option.condition && !option.condition(item)) {
+          return;
+        }
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        li.appendChild(btn);
+        btn.textContent = option.label;
+        btn.addEventListener('click', () => {
+          option.action(item);
+          if (menu.matches(":popover-open")) {
+            menu.hidePopover();
+            resetList(filter);
+          }
+        });
+        ul.appendChild(li);
+      });
+      menu.innerHTML = '';
+      menu.appendChild(ul);
+      menu.style.setProperty('top', `${event.pageY}px`);
+      menu.style.setProperty('left', `${event.pageX}px`);
+      menu.showPopover();
     });
 
     function onClickTab(event) {
@@ -304,76 +405,97 @@
           deselect(b);
         }
         select(btn);
-        const filter = btn.dataset.filter;
-        const fr = new DocumentFragment();
-        for (const i of items) {
-          if (filter === 'all' || i.type === filter) {
-            const tr = document.createElement('tr');
-            tr.dataset.id = i.id;
-            if(tr.dataset.id === selectedId){
-              tr.classList.add('selected');
-            }
-            tr.addEventListener('click', event => {
-              for (const e of tr.parentElement.querySelectorAll('.selected')) {
-                deselect(e);
-              }
-              let elem;
-              if (event.target.localName === 'tr') {
-                elem = event.target;
-              }
-              else if (event.target.localName === 'td') {
-                elem = event.target.parentElement;
-              }
-              select(elem);
-            });
-            fr.appendChild(tr);
-
-            let td = document.createElement('td');
-            const div = document.createElement('div');
-            div.classList.add('icon');
-            div.style.setProperty('width', '100%');
-            div.style.setProperty('height', '100%');
-            div.style.setProperty('background-image', `url(${i.icon})`);
-            td.appendChild(div);
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.classList.add('name');
-            td.textContent = i.name;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.classList.add('weight');
-            td.textContent = i.weight;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.classList.add('count');
-            if (i.can_stack) {
-              td.textContent = i.count;
-            }
-            else {
-              td.textContent = '-';
-            }
-            tr.appendChild(td);
-          }
-        }
-        tableBody.innerHTML = '';
-        tableBody.appendChild(fr);
+        filter = btn.dataset.filter;
+        resetList(filter);
       }
     }
-    function select(element){
+    function resetList(filter) {
+      const fr = new DocumentFragment();
+      for (const i of items) {
+        if (filter === 'all' || i.type === filter) {
+          const tr = document.createElement('tr');
+          tr.dataset.id = parseInt(i.id);
+          if (parseInt(tr.dataset.id) === selectedId) {
+            tr.classList.add('selected');
+          }
+          tr.addEventListener('click', event => {
+            for (const e of tr.parentElement.querySelectorAll('.selected')) {
+              deselect(e);
+            }
+            let elem;
+            if (event.target.localName === 'tr') {
+              elem = event.target;
+            }
+            else if (event.target.localName === 'td') {
+              elem = event.target.parentElement;
+            }
+            select(elem);
+          });
+          fr.appendChild(tr);
+
+          let td = document.createElement('td');
+          const div = document.createElement('div');
+          div.classList.add('icon');
+          div.style.setProperty('width', '100%');
+          div.style.setProperty('height', '100%');
+          div.style.setProperty('background-image', `url(${i.icon})`);
+          td.appendChild(div);
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          td.classList.add('name');
+          td.textContent = i.name;
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          td.classList.add('weight');
+          td.textContent = i.weight;
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          td.classList.add('count');
+          if (i.can_stack) {
+            td.textContent = i.count;
+          }
+          else {
+            td.textContent = '-';
+          }
+          tr.appendChild(td);
+        }
+      }
+      tableBody.innerHTML = '';
+      tableBody.appendChild(fr);
+    }
+    function select(element) {
       element.classList.add('selected');
       element.click();
       element.focus();
-      element.scrollIntoView({block: 'center', behavior: 'smooth'});
-      if('id' in element.dataset){
-        selectedId = element.dataset.id;
+      element.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      if ('id' in element.dataset) {
+        selectedId = parseInt(element.dataset.id);
       }
     }
-    function deselect(element){
+    function deselect(element) {
       element.classList.remove('selected');
       element.blur();
+    }
+    function pushNotify(...args) {
+      if (!args[0]) return;
+      if (Notification?.permission === "granted") {
+        return new Notification(...args);
+      }
+      else if (Notification && Notification.permission !== "denied") {
+        Notification.requestPermission((status) => {
+          if (status === "granted") {
+            return new Notification(...args);
+          } else {
+            alert(args[0]);
+          }
+        });
+      }
+      else {
+        alert(args[0]);
+      }
     }
   </script>
 </body>
