@@ -192,7 +192,7 @@
 </style>
 
 <body>
-  <div style="margin: auto;height: 100%;" class="inventory-container">
+  <div id="inventory" style="margin: auto;height: 100%;" class="inventory-container" tabindex="0">
     <ul id="filterTab" class="filer-buttons-panel">
       <li><button data-filter="all">Всё</button></li>
       <li><button data-filter="food">Еда</button></li>
@@ -211,7 +211,7 @@
             <th class="count">Кол-во</th>
           </tr>
         </thead>
-        <tbody id="tableBody" tabindex="0">
+        <tbody id="tableBody">
         </tbody>
       </table>
     </div>
@@ -223,15 +223,10 @@
 
     filterTab.querySelectorAll('button')[0].click();
 
-    // inventoryBody.addEventListener('keydown', event => {
-    //   if(event.code.startsWidth('Arrow'))
-    //     event.preventDefault();
-    // });
-
-    tableBody.addEventListener('keydown', event => {
-      const selected = tableBody.querySelector('.selected');
+    inventory.addEventListener('keydown', event => {
       switch (event.code) {
         case 'ArrowDown': {
+          const selected = tableBody.querySelector('.selected');
           event.preventDefault();
           if(selected){
             deselect(selected);
@@ -243,6 +238,7 @@
           select(tableBody.firstElementChild);
         }break;
         case 'ArrowUp': {
+          const selected = tableBody.querySelector('.selected');
           event.preventDefault();
           if(selected){
             deselect(selected);
@@ -253,32 +249,31 @@
           }
           select(tableBody.lastElementChild);
         }break;
-      }
-    });
-    filterTab.addEventListener('keydown', event => {
-      const selected = tableBody.querySelector('.selected');
-      switch (event.code) {
-        case 'ArrowDown': {
+        case 'ArrowRight': {
+          const selected = filterTab.querySelector('.selected');
           event.preventDefault();
           if(selected){
             deselect(selected);
-            if(selected.nextElementSibling){
-              select(selected.nextElementSibling);
+            const next = selected.parentElement?.nextElementSibling?.querySelector?.('button');
+            if(next){
+              select(next);
               return;
             }
           }
-          select(tableBody.firstElementChild);
+          select(filterTab.firstElementChild.querySelector?.('button'));
         }break;
-        case 'ArrowUp': {
+        case 'ArrowLeft': {
+          const selected = filterTab.querySelector('.selected');
           event.preventDefault();
           if(selected){
             deselect(selected);
-            if(selected.previousElementSibling){
-              select(selected.previousElementSibling);
+            const next = selected.parentElement?.previousElementSibling?.querySelector?.('button');
+            if(next){
+              select(next);
               return;
             }
           }
-          select(tableBody.lastElementChild);
+          select(filterTab.lastElementChild.querySelector?.('button'));
         }break;
       }
     });
@@ -342,6 +337,7 @@
     }
     function select(element){
       element.classList.add('selected');
+      element.click();
       element.focus();
       element.scrollIntoView({block: 'center', behavior: 'smooth'});
     }
