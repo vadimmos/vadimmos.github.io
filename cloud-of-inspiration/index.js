@@ -1,3 +1,4 @@
+
 start();
 
 function start(main) {
@@ -6,6 +7,24 @@ function start(main) {
     throw new Error('Не найдена рабочая область');
   }
   addListeners(main);
+
+  main.addEventListener('pointerdown', e => {
+    if (e.target !== main) return;
+    const pointerId = e.pointerId;
+    main.setPointerCapture(pointerId);
+    const onMove = e => {
+      if (e.pointerId === pointerId) {
+        window.moveBy(e.movementX, e.movementY);
+      }
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', () => {
+      if (e.pointerId === pointerId) {
+        window.removeEventListener('pointermove', onMove);
+        main.releasePointerCapture(pointerId);
+      }
+    });
+  });
 }
 /** @param {HTMLElement} main*/
 function addListeners(main) {
