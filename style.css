@@ -10,6 +10,20 @@
   --success-color: rgb(0 170 15);
 }
 
+html, body{
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  height: 100%;
+  font-family: Roboto, Noto, sans-serif;
+  overflow: hidden;
+}
+*{
+  box-sizing: border-box;
+}
+
 html, body, dialog {
   background-color: var(--main-bg-color);
   color: var(--main-color);
