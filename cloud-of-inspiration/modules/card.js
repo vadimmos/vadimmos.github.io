@@ -1,8 +1,9 @@
 import { Transform2 } from "./geometry.js";
+import { Item } from "./item.js";
 
-export default class Card extends EventTarget {
+export default class Card extends Item {
   img = document.createElement('img');
-  cardEl = new HTMLCardElement();
+  cardEl = new HTMLCOICardElement();
   set src(v) {
     if (this.img.src === v) return;
     this.img.src = v;
@@ -11,10 +12,10 @@ export default class Card extends EventTarget {
     return this.img.src;
   }
   /**
-   * @param {File|null} input
+   * @param {File|null} source
    * @param {{x: number, y: number}} position
    */
-  constructor(input, position) {
+  constructor(source, position) {
     super();
     this.img.addEventListener('load', e => {
       const { naturalWidth: w, naturalHeight: h } = this.img;
@@ -25,7 +26,7 @@ export default class Card extends EventTarget {
     if (position) {
       this.cardEl.transform = this.cardEl.transform.assign({ position });
     }
-    if (input instanceof File) {
+    if (source instanceof File) {
       const fr = new FileReader();
       fr.addEventListener('progress', e => this.dispatchEvent(new ProgressEvent('progress', e)));
       fr.addEventListener('load', async (e) => {
@@ -34,7 +35,7 @@ export default class Card extends EventTarget {
         await this.decode();
         this.cardEl.dataUrl = this.src;
       });
-      fr.readAsDataURL(input);
+      fr.readAsDataURL(source);
     }
   }
   decode() {
@@ -42,76 +43,96 @@ export default class Card extends EventTarget {
   }
 }
 
-class HTMLCardElement extends HTMLElement {
+class HTMLCOICardElement extends HTMLElement {
   #shadowRoot;
   /**@type {HTMLImageElement}*/
-  img;
+  #img;
+  #x = 0;
+  #y = 0;
+  #w = 0;
+  #h = 0;
+  get img() {
+    return this.#img;
+  }
   set dataUrl(v) {
     this.img.src = v;
   }
-  get x() {
-    const style = getComputedStyle(this);
-    return parseFloat(style['left']);
-  }
+  get x() { return this.#x; }
   set x(v) {
-    this.style.setProperty('left', `${v}px`);
+    // this.style.setProperty('left', `${v}px`);
+    this.#x = v;
   }
-  get y() {
-    const style = getComputedStyle(this);
-    return parseFloat(style['top']);
-  }
+
+  get y() { return this.#y; }
   set y(v) {
-    this.style.setProperty('top', `${v}px`);
+    // this.style.setProperty('top', `${v}px`);
+    this.#y = v;
   }
-  get w() {
-    const style = getComputedStyle(this);
-    return parseFloat(style['width']);
-  }
+
+  get w() { return this.#w; }
   set w(v) {
-    this.style.setProperty('width', `${v}px`);
+    // this.style.setProperty('width', `${v}px`);
+    this.#w = v;
   }
-  get h() {
-    const style = getComputedStyle(this);
-    return parseFloat(style['height']);
-  }
+
+  get h() { return this.#h; }
   set h(v) {
-    this.style.setProperty('height', `${v}px`);
+    // this.style.setProperty('height', `${v}px`);
+    this.#h = v;
   }
+
   get transform() {
     return new Transform2({ position: { x: this.x, y: this.y }, scale: { w: this.w, h: this.h } });
   }
   set transform(transform) {
     transform = new Transform2(transform);
+    const minH = 8 * HTMLCOICardElement.BW;
+    const ratio = this.transform.scale.h / this.transform.scale.w;
+    const minW = minH / ratio;
     requestAnimationFrame(() => {
-      this.x = transform.position.x;
-      this.y = transform.position.y;
-      this.w = transform.scale.w;
-      this.h = transform.scale.h;
-      this.style.setProperty('background-size', `${this.w}px ${this.h}px`);
+      transform.scale.w = Math.max(minW, transform.scale.w);
+      transform.scale.h = Math.max(minH, transform.scale.h);
+      if (this.x !== transform.position.x || this.y !== transform.position.y) {
+        this.x = transform.position.x;
+        this.y = transform.position.y;
+        this.style.setProperty('transform', `translate(${this.x}px, ${this.y}px)`);
+      }
+      if (this.w !== transform.scale.w) {
+        this.w = transform.scale.w;
+        this.style.setProperty('width', `${this.w}px`);
+      }
+      if (this.h !== transform.scale.h) {
+        this.h = transform.scale.h;
+        this.style.setProperty('height', `${this.h}px`);
+      }
     });
   }
 
   constructor() {
     super();
     this.#shadowRoot = this.attachShadow({ mode: "closed" });
-    this.#shadowRoot.appendChild(HTMLCardElement.#template.content.cloneNode(true));
+    this.#shadowRoot.appendChild(HTMLCOICardElement.#template.content.cloneNode(true));
     const img = this.#shadowRoot.querySelector('img');
     if (img instanceof HTMLImageElement) {
-      this.img = img;
+      this.#img = img;
     }
     this.addEventListener('dragover', () => false);
     this.addEventListener('dragleave', () => false);
     let resize = '';
     let action = false;
+    const onEnter = () => {
+      console.log('pointerenter')
+    }
+    this.addEventListener('pointerenter', onEnter);
     this.addEventListener('pointermove', e => {
       if (action) return;
       const x = e.offsetX;
       const y = e.offsetY;
       let s = '';
       if (y < 0) s += 'n';
-      if (y > this.offsetHeight - 2 * HTMLCardElement.BW) s += 's';
+      if (y > this.offsetHeight - 2 * HTMLCOICardElement.BW) s += 's';
       if (x < 0) s += 'w';
-      if (x > this.offsetWidth - 2 * HTMLCardElement.BW) s += 'e';
+      if (x > this.offsetWidth - 2 * HTMLCOICardElement.BW) s += 'e';
       if (s) {
         resize = s;
         this.style.setProperty('cursor', `${s}-resize`);
@@ -122,6 +143,7 @@ class HTMLCardElement extends HTMLElement {
       }
     });
     this.addEventListener('pointerleave', () => {
+      console.log('pointerenter')
       resize = '';
       this.style.removeProperty('cursor');
     });
@@ -204,6 +226,15 @@ class HTMLCardElement extends HTMLElement {
     });
   }
 
+  /**@param {string} name */
+  #getStyle(name) {
+    return getComputedStyle(this)[name];
+  }
+  /**@param {string} name */
+  #getStyleAsNum(name) {
+    return parseFloat(this.#getStyle(name));
+  }
+
   static #template = (() => {
     const t = document.createElement('template');
     t.innerHTML = /*html*/`
@@ -211,7 +242,7 @@ class HTMLCardElement extends HTMLElement {
       :host {
         position: absolute;
         box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-        border: ${HTMLCardElement.BW}px solid transparent;
+        border: ${HTMLCOICardElement.BW}px solid transparent;
       }
       :host(:hover){
         border-color:  var(--accent-color);
@@ -232,7 +263,7 @@ class HTMLCardElement extends HTMLElement {
     return 8;
   };
   static get SCREEN_PADDING() {
-    return HTMLCardElement.BW * 4;
+    return HTMLCOICardElement.BW * 4;
   };
 }
-window.customElements.define('b-card', HTMLCardElement);
+window.customElements.define('coi-card', HTMLCOICardElement);
