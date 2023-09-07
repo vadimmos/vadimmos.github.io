@@ -1,12 +1,19 @@
+import Card from "./modules/card.js";
 
 start();
 
-function start(main) {
-  main ??= document.getElementById('main');
-  if (!(main instanceof HTMLElement)) {
+function start(main = document.getElementById('main')) {
+  if (!main) {
     throw new Error('Не найдена рабочая область');
   }
   addListeners(main);
+}
+/** @param {HTMLElement} main*/
+function addListeners(main) {
+  main.addEventListener('dragover', D_getDt(onDragOver));
+  main.addEventListener('dragleave', onDragLeave);
+  main.addEventListener('dragend', onDragend);
+  main.addEventListener('drop', D_getDt(onDrop));
 
   main.addEventListener('pointerdown', e => {
     if (e.target !== main) return;
@@ -25,13 +32,6 @@ function start(main) {
       }
     });
   });
-}
-/** @param {HTMLElement} main*/
-function addListeners(main) {
-  main.addEventListener('dragover', D_getDt(onDragOver));
-  main.addEventListener('dragleave', onDragLeave);
-  main.addEventListener('dragend', onDragend);
-  main.addEventListener('drop', D_getDt(onDrop));
 
   const TYPES = ['Files', 'text/html', ''];
 
@@ -69,7 +69,10 @@ function addListeners(main) {
       if (item.type.startsWith('image/') && item.kind === 'file') {
         const file = item.getAsFile();
         if (file) {
-          createImageFromFile(file, e).then(img => main.appendChild(img));
+          // createImageFromFile(file, e).then(img => main.appendChild(img));
+          const card = new Card(file, e);
+          main.appendChild(card.cardEl);
+          console.log(card);
         }
       }
     }
@@ -82,22 +85,25 @@ function addListeners(main) {
    */
   function createImageFromFile(file, pos) {
     return new Promise((resolve, reject) => {
-      const img = document.createElement('img');
+      const _img = document.createElement('img');
       const fr = new FileReader();
       fr.addEventListener('load', async () => {
         if (typeof fr.result === 'string') {
-          img.src = fr.result;
-          await img.decode();
+          _img.src = fr.result;
+          await _img.decode();
+          const img = document.createElement('div');
           const sp = img.style.setProperty.bind(img.style);
           const rmp = img.style.removeProperty.bind(img.style);
+          sp('background-image', `url(${_img.src})`);
+          sp('background-size', 'contain');
           sp('top', '0px');
           sp('left', '0px');
           sp('border', `${BW}px solid transparent`);
           const transform = {
-            w: img.naturalWidth,
-            h: img.naturalHeight,
-            x: ~~(pos.x - img.naturalWidth / 2),
-            y: ~~(pos.y - img.naturalHeight / 2),
+            w: _img.naturalWidth,
+            h: _img.naturalHeight,
+            x: ~~(pos.x - _img.naturalWidth / 2),
+            y: ~~(pos.y - _img.naturalHeight / 2),
             apply() {
               this.x = Math.max(-(this.w - SCREEN_PADDING), Math.min(this.x, window.innerWidth - SCREEN_PADDING));
               this.y = Math.max(-(this.h - SCREEN_PADDING), Math.min(this.y, window.innerHeight - SCREEN_PADDING));

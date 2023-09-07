@@ -27,13 +27,15 @@ main.dragover::after {
   border: 4px dotted var(--main-color);
   pointer-events: none;
 }
-img.img-card {
+.img-card {
   position: absolute;
   cursor: move;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .25)) drop-shadow(0px 2px 16px rgba(0, 0, 0, .25));
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-img.img-card:hover{
+.img-card:hover{
   outline: 1px dotted var(--main-color);
 }
 

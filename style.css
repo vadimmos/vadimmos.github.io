@@ -8,6 +8,7 @@
   --error-color: rgb(255, 64, 64);
   --warning-color: rgb(255, 210, 64);
   --success-color: rgb(0 170 15);
+  --accent-color: rgb(151, 2, 226);
 }
 
 html, body{
