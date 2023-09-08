@@ -121,8 +121,8 @@ class HTMLCOICardElement extends HTMLElement {
     let resize = '';
     let action = false;
     const onEnter = () => {
-      console.log('pointerenter')
-    }
+      console.log('pointerenter');
+    };
     this.addEventListener('pointerenter', onEnter);
     this.addEventListener('pointermove', e => {
       if (action) return;
@@ -142,8 +142,8 @@ class HTMLCOICardElement extends HTMLElement {
         this.style.removeProperty('cursor');
       }
     });
-    this.addEventListener('pointerleave', () => {
-      console.log('pointerenter')
+    this.addEventListener('pointerleave', e => {
+      console.log('pointerleave');
       resize = '';
       this.style.removeProperty('cursor');
     });
@@ -154,6 +154,11 @@ class HTMLCOICardElement extends HTMLElement {
       const pointerId = e.pointerId;
       this.setPointerCapture(pointerId);
       const move = !resize;
+      // /**@param {PointerEvent|MouseEvent} e */
+      // const onContextMenu = e => {
+      //   e.preventDefault();
+      // };
+      // window.addEventListener('contextmenu', onContextMenu);
       const onMove = e => {
         if (e.pointerId === pointerId) {
           if (move) {
@@ -161,54 +166,48 @@ class HTMLCOICardElement extends HTMLElement {
             transform.position.y += e.movementY;
           }
           else {
-            if (resize.length === 2) {
-              const ratio = transform.scale.w / transform.scale.h;
-              let dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? e.movementX : e.movementY;
+            const ratio = transform.scale.w / transform.scale.h;
+            let dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? e.movementX : e.movementY;
 
-              switch (resize) {
-                case 'nw': {
-                  transform.position.y += dif;
-                  transform.scale.h -= dif;
-
-                  transform.position.x -= ratio * transform.scale.h - transform.scale.w;
-                  transform.scale.w = ratio * transform.scale.h;
-
-                } break;
-                case 'ne': {
-                  dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? -e.movementX : e.movementY;
-                  transform.position.y += dif;
-                  transform.scale.h -= dif;
-                  transform.scale.w = ratio * transform.scale.h;
-                } break;
-                case 'sw': {
-                  dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? e.movementX : -e.movementY;
-                  transform.scale.h -= dif;
-                  transform.position.x -= ratio * transform.scale.h - transform.scale.w;
-                  transform.scale.w = ratio * transform.scale.h;
-                } break;
-                case 'se': {
-                  transform.scale.h += dif;
-                  transform.scale.w = ratio * transform.scale.h;
-                } break;
-                default:
-                  break;
-              }
-            }
-            else {
-              if (resize.includes('n')) {
+            switch (resize) {
+              case 'nw': {
+                transform.position.y += dif;
+                transform.scale.h -= dif;
+                transform.position.x -= ratio * transform.scale.h - transform.scale.w;
+                transform.scale.w = ratio * transform.scale.h;
+              } break;
+              case 'ne': {
+                dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? -e.movementX : e.movementY;
+                transform.position.y += dif;
+                transform.scale.h -= dif;
+                transform.scale.w = ratio * transform.scale.h;
+              } break;
+              case 'sw': {
+                dif = Math.abs(e.movementX) > Math.abs(e.movementY) ? e.movementX : -e.movementY;
+                transform.scale.h -= dif;
+                transform.position.x -= ratio * transform.scale.h - transform.scale.w;
+                transform.scale.w = ratio * transform.scale.h;
+              } break;
+              case 'se': {
+                transform.scale.h += dif;
+                transform.scale.w = ratio * transform.scale.h;
+              } break;
+              case 'n': {
                 transform.position.y += e.movementY;
                 transform.scale.h -= e.movementY;
-              }
-              if (resize.includes('s')) {
+              } break;
+              case 's': {
                 transform.scale.h += e.movementY;
-              }
-              if (resize.includes('w')) {
+              } break;
+              case 'w': {
                 transform.position.x += e.movementX;
                 transform.scale.w -= e.movementX;
-              }
-              if (resize.includes('e')) {
+              } break;
+              case 'e': {
                 transform.scale.w += e.movementX;
-              }
+              } break;
+              default:
+                break;
             }
             this.transform = transform;
           }
@@ -220,6 +219,7 @@ class HTMLCOICardElement extends HTMLElement {
         if (e.pointerId === pointerId) {
           this.releasePointerCapture(pointerId);
           window.removeEventListener('pointermove', onMove);
+          // window.removeEventListener('contextmenu', onContextMenu);
           action = false;
         }
       }, { once: true });
