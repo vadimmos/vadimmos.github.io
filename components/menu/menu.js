@@ -1,63 +1,51 @@
-export class VBMenu extends HTMLUListElement {
+import { HTMLBasicElement, ShadowRootModes } from "../basic/basic.js";
+const itemTag = 'vb-menu-item';
+const menuStyleSheet = (() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replace(/*css*/`
+    :host, li, ul, ${itemTag}{
+      display: flex;
+      flex: auto;
+    }
+    :host, li{
+      flex-direction: row;
+    }
+    ul{
+      flex-direction: column;
+    }
+  `);
+  return sheet;
+})();
+const ul = document.createElement('ul');
+const getUl = () => ul.cloneNode(true);
+const li = document.createElement('li');
+const getLi = () => li.cloneNode(true);
+
+export class HTMLMenuElement extends HTMLBasicElement {
+  get styleSheet() {
+    return menuStyleSheet;
+  }
+  get shadowRootMode() {
+    return ShadowRootModes.closed;
+  }
+  _items;
+  _itemEls = [];
+  get items() {
+    return this._items;
+  }
+  set items(value) {
+    this._items = value;
+  }
   constructor() {
     super();
-    /**@type {MenuItem[]} */
-    this._items = [];
+    this.append2Shadow(getUl());
   }
-  set items(v) {
-    this._items.splice(0, this._items.length, ...v);
-    const fr = new DocumentFragment();
-    for (const i of this._items) {
-      const li = document.createElement('li');
-      const img = document.createElement('img');
-      const a = document.createElement('a');
-      img.onerror = imgOnError;
-      img.src = i.iconPath;
-      img.setAttribute('alt', i.alt || i.text);
-      a.href = i.href;
-      a.setAttribute('aria-label', i.text);
-      a.setAttribute('title', i.text);
-      a.textContent = i.text;
-      li.appendChild(img);
-      li.appendChild(a);
-      fr.appendChild(li);
-    }
-    this.innerHTML = '';
-    this.appendChild(fr);
+}
+HTMLMenuElement.register('vb-menu');
 
-  }
-  get items() { return this._items }
-}
-export class MenuItem {
-  constructor(text = '', path = '', icon = 'icon.png', alt = '') {
-    this.text = text;
-    this.path = path;
-    this.icon = icon;
-    this.alt = alt;
-  }
-  get iconPath() {
-    return `${this.path}/${this.icon}`
-  }
-  get href() {
-    return !this.path.endsWith('.html') ? `${this.path}/index.html` : this.path;
+export class HTMLMenuItemElement extends HTMLBasicElement {
+  constructor() {
+    super();
   }
 }
-const style = document.createElement('style');
-style.textContent = /*css*/`[is="vb-menu"]>li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 4px;
-  font-size: 1.25em;
-  min-height: 1.25em;
-}
-
-[is="vb-menu"]>li>img {
-  margin-right: 8px;
-  width: 1.25em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}`;
-document.head.appendChild(style);
-window.customElements.define('vb-menu', VBMenu, { extends: 'ul' });
-function imgOnError() { this.src = '/favicon.ico' }
+HTMLMenuItemElement.register(itemTag);

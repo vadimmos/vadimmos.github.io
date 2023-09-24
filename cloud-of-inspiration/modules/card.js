@@ -1,7 +1,7 @@
 import { Transform2 } from "./geometry.js";
 import { Item } from "./item.js";
 
-export default class Card extends Item {
+export class Card extends Item {
   img = document.createElement('img');
   cardEl = new HTMLCOICardElement();
   set src(v) {
@@ -99,11 +99,11 @@ class HTMLCOICardElement extends HTMLElement {
       }
       if (this.w !== transform.scale.w) {
         this.w = transform.scale.w;
-        this.style.setProperty('width', `${this.w}px`);
+        this.style.setProperty('width', `${~~this.w}px`);
       }
       if (this.h !== transform.scale.h) {
         this.h = transform.scale.h;
-        this.style.setProperty('height', `${this.h}px`);
+        this.style.setProperty('height', `${~~this.h}px`);
       }
     });
   }
@@ -121,8 +121,8 @@ class HTMLCOICardElement extends HTMLElement {
     let resize = '';
     let action = false;
     const onEnter = () => {
-      console.log('pointerenter')
-    }
+      console.log('pointerenter');
+    };
     this.addEventListener('pointerenter', onEnter);
     this.addEventListener('pointermove', e => {
       if (action) return;
@@ -143,7 +143,7 @@ class HTMLCOICardElement extends HTMLElement {
       }
     });
     this.addEventListener('pointerleave', () => {
-      console.log('pointerenter')
+      console.log('pointerenter');
       resize = '';
       this.style.removeProperty('cursor');
     });

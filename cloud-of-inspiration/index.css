@@ -1,4 +1,4 @@
-*{
+* {
   user-select: none;
 }
 main {
@@ -35,11 +35,11 @@ main.dragover::after {
   background-repeat: no-repeat;
 }
 
-.img-card:hover{
+.img-card:hover {
   outline: 1px dotted var(--main-color);
 }
 
 
-.pointer-events-none{
+.pointer-events-none {
   pointer-events: none;
 }

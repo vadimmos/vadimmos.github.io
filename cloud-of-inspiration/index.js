@@ -1,5 +1,7 @@
-import Card from "./modules/card.js";
-
+import { HTMLPopoverElement } from "../components/popup/popup.js";
+import { Card } from "./modules/card.js";
+const menu = new HTMLPopoverElement();
+document.body.appendChild(menu);
 start();
 
 function start(main = document.getElementById('main')) {
@@ -14,6 +16,16 @@ function addListeners(main) {
   main.addEventListener('dragleave', onDragLeave);
   main.addEventListener('dragend', onDragend);
   main.addEventListener('drop', D_getDt(onDrop));
+  main.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    const menuContent = document.createElement('ul');
+    for (let i = 0; i < 10; i++){
+      const li = document.createElement('li');
+      li.textContent = 'test';
+      menuContent.appendChild(li);
+    }
+    menu.showPopover(menuContent, e);
+  });
 
   main.addEventListener('pointerdown', e => {
     if (e.target !== main) return;
