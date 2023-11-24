@@ -44,7 +44,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
   recognition.onerror = function (event) {
     stop();
-    out.value = 'Error occurred in recognition: ' + event.error;
+    out.value = event.error;
   };
   function start() {
     try {
