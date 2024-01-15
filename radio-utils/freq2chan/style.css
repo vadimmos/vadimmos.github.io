@@ -2,6 +2,7 @@ body{
   padding: 8px;
 }
 input{
+  min-width: 1px;
   font-family: sans-serif;
   background: transparent;
   font-size: 32px;
