@@ -1,6 +1,15 @@
 body{
   padding: 8px;
 }
+input{
+  font-family: sans-serif;
+  background: transparent;
+  font-size: 32px;
+  border: none;
+  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5);
+  margin-bottom: 8px;
+  flex: auto;
+}
 table, table td, table th {
   border: 1px solid gray;
   font-family: monospace;
