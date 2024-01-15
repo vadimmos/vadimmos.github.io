@@ -20,11 +20,11 @@ function save (node, idx = 0, key = 'root', value) {
 const header = {
   _idx: {},
   _value: {},
-  label: {
-    label: 'Частота',
-  },
   chanel: {
     label: 'Канал',
+  },
+  label: {
+    label: 'Частота',
   },
   description: {
     label: 'Заметка',
@@ -58,7 +58,7 @@ const header = {
 const data = [];
 
 let a = 433;
-let b = 0;
+let b = 50;
 for (let i = 0; i < 69; i++) {
   b += 25;
   if (b >= 1000) {
@@ -71,8 +71,11 @@ for (let i = 0; i < 69; i++) {
   const node = {
     _idx: i,
     _value: value,
+    get _filter() {
+      return `${node.chanel}, ${node.label}${node.description ? `, ${node.description}` : ''}`;
+    },
     label: value.toString().padEnd(7, '0'),
-    chanel: i,
+    chanel: i + 1,
     description: localStorage.getItem(`${location.pathname}/${i}/description`) || '',
     tools: [
       {
@@ -82,6 +85,8 @@ for (let i = 0; i < 69; i++) {
           const value = prompt('Редактировать заметку', load(node, node._idx, 'description'));
           if (value !== null) {
             save(node, node._idx, 'description', value);
+            node['description'] = value;
+            updateDataList();
             drawTable();
           }
         }
@@ -89,10 +94,8 @@ for (let i = 0; i < 69; i++) {
     ]
   };
   data.push(node);
-  const option = document.createElement('option');
-  option.value = node.label;
-  datalist.appendChild(option);
 }
+updateDataList();
 drawTable();
 
 let updateId = 0;
@@ -117,7 +120,7 @@ function drawTable(filter = input.value) {
     thead.appendChild(headRow);
     tbody.innerHTML = '';
     (filter
-      ? data.filter((r) => r.label.toString().includes(filter))
+      ? data.filter((r) => filter.split(',').every(p => p === '*' || r._filter.includes(p)))
       : [...data]
     ).map((r) => {
       const row = document.createElement('tr');
@@ -131,4 +134,14 @@ function drawTable(filter = input.value) {
       tbody.appendChild(row);
     });
   });
+}
+function updateDataList() {
+  requestAnimationFrame(() => {
+    datalist.innerHTML = '';
+    for (const node of data) {
+      const option = document.createElement('option');
+      option.value = node._filter;
+      datalist.appendChild(option);
+    }
+  })
 }
