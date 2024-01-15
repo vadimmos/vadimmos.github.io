@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title>Home</title>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="../manifest.json">
+  <script src="../index.js" type="module"></script>
+  <meta name="theme-color" content="#353535">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../icons/icon-192x192.png">
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+
+<body>
+  <div style="display: flex">
+    <input id="input" list="frequencies" type="search" placeholder="фильтр" style="flex: auto" />
+    <datalist id="frequencies"></datalist>
+  </div>
+  <div style="
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+      ">
+    <table style="flex: auto">
+      <thead id="thead"></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</body>
+
+</html>
